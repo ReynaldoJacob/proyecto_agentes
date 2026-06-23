@@ -187,14 +187,15 @@
                         </div>
                     </div>
                     <div class="space-y-xs">
-                        <label class="font-label-md text-label-md text-on-surface-variant">Rango de Precio (€)</label>
+                        <label class="font-label-md text-label-md text-on-surface-variant">Rango de Precio (MXN)</label>
                         <div class="relative">
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">payments</span>
                             <select class="w-full bg-background border-outline-variant rounded-lg pl-10 py-2.5 font-body-md focus:ring-primary focus:border-primary transition-all">
                                 <option>Sin límite</option>
-                                <option>Hasta 500,000€</option>
-                                <option>500,000€ - 1,000,000€</option>
-                                <option>Más de 1,000,000€</option>
+                                <option>Hasta $1,000,000 MXN</option>
+                                <option>$1,000,000 - $3,000,000 MXN</option>
+                                <option>$3,000,000 - $6,000,000 MXN</option>
+                                <option>Más de $6,000,000 MXN</option>
                             </select>
                         </div>
                     </div>
@@ -212,49 +213,90 @@
         <section class="px-margin-desktop max-w-[1440px] mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
                 @forelse($properties as $property)
+                @php
+                    $badgeClass = match($property->status) {
+                        'vendido'   => 'bg-on-surface-variant/80 text-white',
+                        'reservado' => 'bg-white/90 backdrop-blur-md text-on-surface',
+                        default     => $property->is_featured ? 'bg-primary text-white' : 'bg-secondary text-white',
+                    };
+                    $badgeText = match($property->operation_type) {
+                        'preventa'         => 'PRE-VENTA',
+                        'renta_vacacional' => 'RENTA VACACIONAL',
+                        'renta_anual'      => 'RENTA ANUAL',
+                        default            => $property->is_featured ? 'DESTACADO' : strtoupper($property->getStatusLabel()),
+                    };
+                    if ($property->status === 'vendido') $badgeText = 'VENDIDO';
+                    if ($property->status === 'reservado') $badgeText = 'RESERVADO';
+                @endphp
                 <!-- Property Card -->
-                <div class="bg-surface-container-lowest rounded-xl overflow-hidden group shadow-sm hover:shadow-xl transition-all duration-500">
-                    <div class="relative h-72 overflow-hidden">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="{{ $property['title'] }}" src="{{ $property['image'] }}">
+                <a href="{{ route('properties.show', $property) }}"
+                   class="bg-surface-container-lowest rounded-xl overflow-hidden group shadow-sm hover:shadow-xl transition-all duration-500 block">
+                    <div class="relative h-72 overflow-hidden bg-surface-container">
+                        @if($property->cover_image)
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                 alt="{{ $property->title }}"
+                                 src="{{ Storage::url($property->cover_image) }}">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center text-outline">
+                                <span class="material-symbols-outlined text-6xl">home</span>
+                            </div>
+                        @endif
                         <div class="absolute top-4 left-4 flex gap-xs">
-                            @if($property['status'] === 'VENDIDO')
-                                <span class="bg-on-surface-variant/80 text-white text-label-sm px-3 py-1 rounded-full font-bold">{{ $property['status'] }}</span>
-                            @elseif($property['status'] === 'ENTREGA INMEDIATA')
-                                <span class="bg-white/90 backdrop-blur-md text-on-surface text-label-sm px-3 py-1 rounded-full font-bold">{{ $property['status'] }}</span>
-                            @elseif($property['featured'])
-                                <span class="bg-primary text-white text-label-sm px-3 py-1 rounded-full font-bold">{{ $property['status'] }}</span>
-                            @else
-                                <span class="bg-secondary text-white text-label-sm px-3 py-1 rounded-full font-bold">{{ $property['status'] }}</span>
-                            @endif
+                            <span class="text-label-sm px-3 py-1 rounded-full font-bold {{ $badgeClass }}">
+                                {{ $badgeText }}
+                            </span>
                         </div>
                     </div>
                     <div class="p-gutter space-y-md">
                         <div>
-                            <p class="text-secondary font-label-md uppercase tracking-wider text-xs">{{ $property['location'] }}</p>
-                            <h3 class="font-headline-md text-headline-md text-on-surface">{{ $property['title'] }}</h3>
+                            <p class="text-secondary font-label-md uppercase tracking-wider text-xs">
+                                {{ $property->city }}{{ $property->state ? ', ' . $property->state : '' }}
+                            </p>
+                            <h3 class="font-headline-md text-headline-md text-on-surface">{{ $property->title }}</h3>
                         </div>
                         <div class="flex justify-between items-center text-on-surface-variant py-2 border-y border-surface-container-high">
+                            @if($property->bedrooms !== null)
                             <div class="flex flex-col items-center gap-xs">
                                 <span class="material-symbols-outlined text-outline">bed</span>
-                                <span class="font-label-md text-label-sm">{{ $property['bedrooms'] }} Hab.</span>
+                                <span class="font-label-md text-label-sm">{{ $property->bedrooms }} Hab.</span>
                             </div>
+                            @endif
+                            @if($property->bathrooms !== null)
                             <div class="flex flex-col items-center gap-xs">
                                 <span class="material-symbols-outlined text-outline">bathtub</span>
-                                <span class="font-label-md text-label-sm">{{ $property['bathrooms'] }} Baños</span>
+                                <span class="font-label-md text-label-sm">{{ $property->bathrooms }} Baños</span>
                             </div>
+                            @endif
+                            @if($property->area)
                             <div class="flex flex-col items-center gap-xs">
                                 <span class="material-symbols-outlined text-outline">straighten</span>
-                                <span class="font-label-md text-label-sm">{{ $property['area'] }} m²</span>
+                                <span class="font-label-md text-label-sm">{{ $property->area }} m²</span>
                             </div>
+                            @endif
+                            @if(!$property->bedrooms && !$property->bathrooms && !$property->area)
+                            <div class="flex flex-col items-center gap-xs">
+                                <span class="material-symbols-outlined text-outline">landscape</span>
+                                <span class="font-label-md text-label-sm">{{ $property->getTypeLabel() }}</span>
+                            </div>
+                            @endif
                         </div>
                         <div class="flex justify-between items-center pt-xs">
-                            <span class="text-primary font-headline-md">{{ $property['price'] }} €</span>
-                            <button class="bg-surface-container-high hover:bg-primary hover:text-on-primary p-3 rounded-full transition-all group/btn">
+                            <div>
+                                <span class="text-primary font-headline-md">
+                                    {{ $property->currency }} {{ number_format($property->price, 0, '.', ',') }}
+                                </span>
+                                @if($property->isRental())
+                                    <span class="text-on-surface-variant text-xs">
+                                        / {{ $property->operation_type === 'renta_vacacional' ? 'noche' : 'mes' }}
+                                    </span>
+                                @endif
+                            </div>
+                            <span class="bg-surface-container-high hover:bg-primary hover:text-on-primary p-3 rounded-full transition-all">
                                 <span class="material-symbols-outlined">visibility</span>
-                            </button>
+                            </span>
                         </div>
                     </div>
-                </div>
+                </a>
                 @empty
                 <div class="col-span-full text-center py-12">
                     <p class="text-on-surface-variant">No hay propiedades disponibles en este momento.</p>
@@ -262,13 +304,12 @@
                 @endforelse
             </div>
 
-            <!-- Pagination/Load More -->
+            <!-- Paginación -->
+            @if($properties->hasPages())
             <div class="mt-xl flex justify-center">
-                <button class="group flex items-center gap-sm bg-surface-container-high px-lg py-md rounded-full font-label-md text-primary hover:bg-primary hover:text-on-primary transition-all shadow-sm">
-                    Ver más propiedades
-                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                </button>
+                {{ $properties->links() }}
             </div>
+            @endif
         </section>
 
         <!-- Newsletter / CTA -->

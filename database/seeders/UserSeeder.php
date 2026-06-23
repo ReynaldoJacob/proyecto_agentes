@@ -16,31 +16,33 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // Admin user
-        User::create([
-            'name' => 'Administrador',
-            'email' => 'admin@margaritaflores.com',
-            'password' => Hash::make('password123'),
-            'role' => 'admin',
-            'is_active' => true,
-        ]);
+       User::firstOrCreate(
+            ['email' => 'admin@margaritaflores.mx'],
+            [
+                'name'      => 'Admin Principal',
+                'password'  => Hash::make('admin1234'),
+                'role'      => 'admin',
+                'is_active' => true,
+            ]
+        );
 
-        // Agent user
-        User::create([
-            'name' => 'Juan Agente',
-            'email' => 'agente@margaritaflores.com',
-            'password' => Hash::make('password123'),
-            'role' => 'agente',
-            'is_active' => true,
-        ]);
+        // Agentes
+        $agentes = [
+            ['name' => 'Margarita Flores',  'email' => 'margarita@margaritaflores.mx'],
+            ['name' => 'Carlos Mendoza',    'email' => 'carlos@margaritaflores.mx'],
+            ['name' => 'Ana Ramírez',       'email' => 'ana@margaritaflores.mx'],
+        ];
 
-        // Inactive user
-        User::create([
-            'name' => 'Usuario Inactivo',
-            'email' => 'inactivo@margaritaflores.com',
-            'password' => Hash::make('password123'),
-            'role' => 'agente',
-            'is_active' => false,
-        ]);
+        foreach ($agentes as $agente) {
+            User::firstOrCreate(
+                ['email' => $agente['email']],
+                [
+                    'name'      => $agente['name'],
+                    'password'  => Hash::make('xs'),
+                    'role'      => 'agente',
+                    'is_active' => true,
+                ]
+            );
+        }
     }
 }
