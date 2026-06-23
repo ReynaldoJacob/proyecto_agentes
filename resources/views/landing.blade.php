@@ -116,36 +116,60 @@
     </style>
 </head>
 <body class="bg-surface font-body-md text-on-surface overflow-x-hidden">
-    <nav class="fixed top-0 w-full z-50 backdrop-blur-md bg-surface/80 dark:bg-surface-container-highest/80 shadow-sm border-b border-outline-variant/10">
-        <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
-            <a class="font-headline-lg text-headline-lg-mobile md:text-headline-md text-primary dark:text-primary-fixed-dim tracking-tight" href="#">
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-md bg-surface/90 shadow-sm border-b border-outline-variant/10">
+        <div class="flex justify-between items-center px-4 md:px-margin-desktop py-3 md:py-4 max-w-container-max mx-auto">
+            <a class="font-headline-lg text-headline-lg-mobile md:text-headline-md text-primary tracking-tight leading-tight" href="/">
                 Margarita Flores
-                <span class="block text-label-sm font-label-sm text-on-surface-variant dark:text-outline-variant tracking-widest uppercase mt-1">Asesora Inmobiliaria</span>
+                <span class="block text-[10px] font-label-sm text-on-surface-variant tracking-widest uppercase">Asesora Inmobiliaria</span>
             </a>
+            {{-- Desktop nav --}}
             <div class="hidden md:flex gap-8 items-center">
-                <a class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 transition-all duration-300 active:scale-95" href="/">Inicio</a>
-                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-300 active:scale-95" href="/properties">Propiedades</a>
-                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-300 active:scale-95" href="#contacto">Contacto</a>
-                <button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-md transition-all hover:opacity-90 active:scale-95">Consulta Gratis</button>
+                <a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 transition-all" href="/">Inicio</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" href="/properties">Propiedades</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" href="#contacto">Contacto</a>
+                <a href="#contacto" class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-md hover:opacity-90 transition-all">Consulta Gratis</a>
             </div>
-            <button class="md:hidden text-primary" aria-label="Abrir menu">
-                <span class="material-symbols-outlined">menu</span>
+            {{-- Hamburger --}}
+            <button id="menu-btn" class="md:hidden text-primary p-2 rounded-lg hover:bg-surface-container transition-all" aria-label="Abrir menú">
+                <span id="menu-icon" class="material-symbols-outlined">menu</span>
             </button>
+        </div>
+
+        {{-- Mobile menu --}}
+        <div id="mobile-menu"
+             class="md:hidden hidden flex-col bg-surface border-t border-outline-variant/20 px-4 pb-4 pt-2 space-y-1">
+            <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-semibold bg-primary/5">
+                <span class="material-symbols-outlined text-[20px]">home</span> Inicio
+            </a>
+            <a href="/properties" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all font-medium">
+                <span class="material-symbols-outlined text-[20px]">domain</span> Propiedades
+            </a>
+            <a href="#contacto" id="contacto-link" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all font-medium">
+                <span class="material-symbols-outlined text-[20px]">mail</span> Contacto
+            </a>
+            <div class="pt-2">
+                <a href="#contacto" id="consulta-link" class="flex items-center justify-center gap-2 w-full bg-primary text-on-primary px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-all">
+                    <span class="material-symbols-outlined text-[20px]">calendar_month</span> Consulta Gratis
+                </a>
+            </div>
         </div>
     </nav>
 
-    <header class="relative min-h-[90vh] flex items-center pt-20">
+    <header class="relative min-h-[100svh] md:min-h-[90vh] flex items-end md:items-center pt-16 pb-12 md:pb-0">
         <div class="absolute inset-0 z-0">
-            <img alt="Luxury Home Interior" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ_kFUXxVPjfwfVGxLrK5gf-gcdDdqOoYO7e3A_ScgBr2N-hPa-XVivEdDeh-iHeUWXvEDSt-q2PheOloVc44bhlUw0WkT6V9uehzQ_d1x3j8cdwWgC69JXUaI8tbHmVWxLHniV-UMhJ1k4m4h-kuV5YQIXzRutucrFTicT3y1y1zowqHSICW1zhPpbaIdo8_cbJ-DZig-SZLHnP47IjygYwgKq8d93uLRhXmOUDTaMHQQjW-LYmMVY9-se_gy4V2_8ksevVmcMh8">
-            <div class="absolute inset-0 bg-gradient-to-r from-background/95 via-background/60 to-transparent"></div>
+            <img alt="Luxury Home Interior" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ_kFUXxVPjfwfVGxLrK5gf-gcdDdqOoYO7e3A_ScgBr2N-hPa-XVivEdDeh-iHeUWXvEDSt-q2PheOloVc44bhlUw0WkT6V9uehzQ_d1x3j8cdwWgC69JXUaI8tbHmVWxLHniV-UMhJ1k4m4h-kuV5YQIXzRutucrFTicT3y1y1zowqHSICW1zhPpbaIdo8_cbJ-DZig-SZLHnP47IjygYwgKq8d93uLRhXmOUDTaMHQQjW-LYmMVY9-se_gy4V2_8ksevVmcMh8">
+            {{-- Mobile: gradiente de abajo hacia arriba --}}
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/20 md:hidden"></div>
+            {{-- Desktop: gradiente de izquierda a derecha --}}
+            <div class="absolute inset-0 hidden md:block bg-gradient-to-r from-background/95 via-background/60 to-transparent"></div>
         </div>
-        <div class="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop w-full">
-            <div class="max-w-2xl">
-                <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface mb-6 leading-tight">Tu próximo capítulo comienza aquí</h1>
-                <p class="font-body-lg text-body-lg text-on-surface-variant mb-10 leading-relaxed">Mi propósito es ayudarte a encontrar más que una propiedad: una oportunidad para construir patrimonio, alcanzar tus metas y crecer junto con Mazatlán.</p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="/properties" class="inline-block bg-primary text-on-primary px-10 py-4 rounded-xl font-label-md text-lg transition-all hover:shadow-lg hover:shadow-primary/20 active:scale-95 text-center">Ver Propiedades</a>
-                    <button class="border-2 border-primary-container text-primary-container px-10 py-4 rounded-xl font-label-md text-lg transition-all hover:bg-primary-container/5 active:scale-95">Agenda una Cita</button>
+        <div class="relative z-10 max-w-container-max mx-auto px-4 md:px-margin-desktop w-full">
+            <div class="max-w-2xl text-center md:text-left">
+                <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface mb-4 md:mb-6 leading-tight">Tu próximo capítulo comienza aquí</h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant mb-8 md:mb-10 leading-relaxed text-sm md:text-lg">Mi propósito es ayudarte a encontrar más que una propiedad: una oportunidad para construir patrimonio, alcanzar tus metas y crecer junto con Mazatlán.</p>
+                <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
+                    <a href="/properties" class="bg-primary text-on-primary px-8 py-4 rounded-xl font-label-md text-base md:text-lg transition-all hover:shadow-lg hover:shadow-primary/20 active:scale-95 text-center">Ver Propiedades</a>
+                    <a href="#contacto" class="border-2 border-primary text-primary px-8 py-4 rounded-xl font-label-md text-base md:text-lg transition-all hover:bg-primary/5 active:scale-95 text-center">Agenda una Cita</a>
                 </div>
             </div>
         </div>
@@ -309,8 +333,8 @@
         <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
             <div class="flex flex-col lg:flex-row items-center gap-16">
                 <div class="w-full lg:w-1/2 relative">
-                    <div class="relative z-10 rounded-3xl overflow-hidden aspect-[4/5] property-card-shadow">
-                        <img alt="Margarita Flores Portrait" class="w-full h-full object-cover" src="/images/agent-profile.jpeg">
+                    <div class="relative z-10 rounded-3xl overflow-hidden aspect-[4/3] md:aspect-[4/5] property-card-shadow max-h-[340px] md:max-h-none">
+                        <img alt="Margarita Flores Portrait" class="w-full h-full object-cover object-top" src="/images/agent-profile.jpeg">
                     </div>
                     <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-primary-container rounded-full opacity-10 blur-3xl"></div>
                     <div class="absolute -top-10 -left-10 w-64 h-64 bg-secondary-container rounded-full opacity-20 blur-3xl"></div>
@@ -333,14 +357,14 @@
         </div>
     </section>
 
-    <section class="py-section-gap max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="bg-inverse-surface rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row justify-between items-center gap-12 overflow-hidden relative">
+    <section id="contacto" class="py-section-gap max-w-container-max mx-auto px-4 md:px-margin-desktop">
+        <div class="bg-inverse-surface rounded-3xl md:rounded-[3rem] p-6 md:p-16 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12 overflow-hidden relative">
             <div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
             <div class="w-full md:w-3/5 text-center md:text-left relative z-10">
-                <span class="font-label-md text-secondary-fixed tracking-[0.2em] uppercase mb-4 block">Listo para dar el paso?</span>
-                <h2 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-inverse-on-surface mb-6">Ponte en contacto conmigo</h2>
-                <p class="font-body-lg text-body-lg text-outline-variant mb-10 max-w-lg">Estoy disponible para resolver tus dudas, agendar una cita o ayudarte a evaluar el valor de mercado de tu inmueble sin compromiso.</p>
-                <div class="flex flex-col sm:flex-row gap-8 items-center md:items-start">
+                <span class="font-label-md text-secondary-fixed tracking-[0.2em] uppercase mb-3 block text-xs">¿Listo para dar el paso?</span>
+                <h2 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-inverse-on-surface mb-4 md:mb-6">Ponte en contacto conmigo</h2>
+                <p class="font-body-lg text-body-lg text-outline-variant mb-6 md:mb-10 max-w-lg text-sm md:text-lg">Estoy disponible para resolver tus dudas, agendar una cita o ayudarte a evaluar el valor de mercado de tu inmueble sin compromiso.</p>
+                <div class="flex flex-col sm:flex-row gap-4 md:gap-8 items-center md:items-start">
                     <div class="flex items-center gap-4 group">
                         <div class="w-14 h-14 rounded-full bg-surface-variant/10 flex items-center justify-center text-inverse-on-surface border border-outline-variant/20 transition-all group-hover:bg-primary-container">
                             <span class="material-symbols-outlined">call</span>
@@ -468,25 +492,47 @@
     </footer>
 
     <script>
+        // Menú mobile
+        const menuBtn  = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuBtn.addEventListener('click', () => {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden', isOpen);
+            mobileMenu.classList.toggle('flex', !isOpen);
+            menuIcon.textContent = isOpen ? 'menu' : 'close';
+        });
+
+        // Cerrar menú al tocar un enlace
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                menuIcon.textContent = 'menu';
+            });
+        });
+
+        // Parallax solo en desktop
         window.addEventListener('scroll', () => {
-            const scroll = window.pageYOffset;
-            const heroImg = document.querySelector('header img');
-            if (heroImg) {
-                heroImg.style.transform = `translateY(${scroll * 0.2}px)`;
+            if (window.innerWidth >= 768) {
+                const scroll = window.pageYOffset;
+                const heroImg = document.querySelector('header img');
+                if (heroImg) heroImg.style.transform = `translateY(${scroll * 0.2}px)`;
             }
         });
 
-        const observerOptions = { threshold: 0.1 };
+        // Animación de entrada para tarjetas
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.property-card-shadow').forEach((card) => {
+        document.querySelectorAll('.property-card-shadow').forEach(card => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px)';
             card.style.transition = 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
