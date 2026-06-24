@@ -340,16 +340,27 @@
                     <div class="absolute -top-10 -left-10 w-64 h-64 bg-secondary-container rounded-full opacity-20 blur-3xl"></div>
                 </div>
                 <div class="w-full lg:w-1/2">
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">¿Por qué elegirme como tu asesora?</h2>
-                    <div class="space-y-0">
-                        <div class="flex gap-6 items-start">
-                            <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-primary-container/10 flex items-center justify-center text-primary">
-                                <span class="material-symbols-outlined">person_check</span>
-                            </div>
-                            <div>
-                                <p class="font-body-lg text-on-surface-variant leading-relaxed">Brindo una atención cercana y personalizada, entendiendo las necesidades reales de cada cliente para ofrecer soluciones inmobiliarias seguras y rentables. Mi compromiso es acompañarlos durante todo el proceso con transparencia, conocimiento del mercado de Mazatlán y un enfoque estratégico orientado a proteger y hacer crecer su patrimonio.</p>
-                            </div>
+                    <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4 md:mb-2 text-center lg:text-left">¿Por qué elegirme como tu asesora?</h2>
+
+                    <div class="flex gap-4 items-start bg-surface-container-low rounded-2xl p-5 md:p-6 mb-4">
+                        <div class="flex-shrink-0 w-11 h-11 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-primary-container/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-[20px] md:text-[24px]">person_check</span>
                         </div>
+                        <p class="text-sm md:font-body-md text-on-surface-variant leading-relaxed">Brindo una atención cercana y personalizada, entendiendo las necesidades reales de cada cliente para ofrecer soluciones inmobiliarias seguras y rentables.</p>
+                    </div>
+
+                    <div class="flex gap-4 items-start bg-surface-container-low rounded-2xl p-5 md:p-6 mb-4">
+                        <div class="flex-shrink-0 w-11 h-11 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-primary-container/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-[20px] md:text-[24px]">handshake</span>
+                        </div>
+                        <p class="text-sm md:font-body-md text-on-surface-variant leading-relaxed">Mi compromiso es acompañarlos durante todo el proceso con transparencia y conocimiento del mercado de Mazatlán.</p>
+                    </div>
+
+                    <div class="flex gap-4 items-start bg-surface-container-low rounded-2xl p-5 md:p-6">
+                        <div class="flex-shrink-0 w-11 h-11 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-primary-container/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-[20px] md:text-[24px]">trending_up</span>
+                        </div>
+                        <p class="text-sm md:font-body-md text-on-surface-variant leading-relaxed">Un enfoque estratégico orientado a proteger y hacer crecer tu patrimonio.</p>
                     </div>
                 </div>
             </div>
