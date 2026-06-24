@@ -321,7 +321,7 @@
                             <textarea rows="3" placeholder="Me interesa esta propiedad..."
                                       class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">Me interesa la propiedad "{{ $property->title }}".</textarea>
 
-                            <a href="https://wa.me/526691234567?text={{ urlencode('Hola Margarita, me interesa la propiedad: ' . $property->title . ' — ' . request()->url()) }}"
+                            <a href="https://wa.me/5266911057?text={{ urlencode('Hola Margarita, me interesa la propiedad: ' . $property->title . ' — ' . request()->url()) }}"
                                target="_blank"
                                class="w-full flex items-center justify-center gap-2 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
