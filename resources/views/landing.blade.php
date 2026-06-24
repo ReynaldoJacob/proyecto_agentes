@@ -273,7 +273,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-16">
                 {{-- Visión --}}
-                <div class="bg-surface-container-lowest rounded-2xl p-8 property-card-shadow">
+                <div class="bg-surface-container-lowest rounded-2xl p-5 md:p-8 property-card-shadow">
                     <div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary mb-5">
                         <span class="material-symbols-outlined">visibility</span>
                     </div>
@@ -282,7 +282,7 @@
                 </div>
 
                 {{-- Misión --}}
-                <div class="bg-surface-container-lowest rounded-2xl p-8 property-card-shadow">
+                <div class="bg-surface-container-lowest rounded-2xl p-5 md:p-8 property-card-shadow">
                     <div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary mb-5">
                         <span class="material-symbols-outlined">flag</span>
                     </div>
@@ -291,7 +291,7 @@
                 </div>
 
                 {{-- Objetivo --}}
-                <div class="bg-surface-container-lowest rounded-2xl p-8 property-card-shadow">
+                <div class="bg-surface-container-lowest rounded-2xl p-5 md:p-8 property-card-shadow">
                     <div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary mb-5">
                         <span class="material-symbols-outlined">target</span>
                     </div>
@@ -301,27 +301,27 @@
             </div>
 
             {{-- Valores --}}
-            <div class="bg-primary rounded-3xl p-8 md:p-12">
-                <div class="text-center mb-10">
-                    <h3 class="font-headline-lg text-headline-lg text-on-primary mb-2">Mis Valores</h3>
-                    <p class="text-on-primary/70 font-body-md">Los principios que guían cada asesoría</p>
+            <div class="bg-primary rounded-2xl md:rounded-3xl p-6 md:p-12">
+                <div class="text-center mb-6 md:mb-10">
+                    <h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-primary mb-1">Mis Valores</h3>
+                    <p class="text-on-primary/70 text-sm md:font-body-md">Los principios que guían cada asesoría</p>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="text-center p-6 bg-white/10 rounded-2xl">
-                        <span class="material-symbols-outlined text-on-primary text-4xl mb-3 block">shield</span>
-                        <p class="font-label-md text-on-primary tracking-wider uppercase text-sm">Transparencia</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+                    <div class="text-center p-4 md:p-6 bg-white/10 rounded-xl md:rounded-2xl flex flex-col items-center">
+                        <span class="material-symbols-outlined text-on-primary text-3xl md:text-4xl mb-2 block">shield</span>
+                        <p class="font-label-md text-on-primary md:tracking-wider uppercase text-[10px] md:text-sm leading-tight">Transparencia</p>
                     </div>
-                    <div class="text-center p-6 bg-white/10 rounded-2xl">
-                        <span class="material-symbols-outlined text-on-primary text-4xl mb-3 block">balance</span>
-                        <p class="font-label-md text-on-primary tracking-wider uppercase text-sm">Ética y Confidencialidad</p>
+                    <div class="text-center p-4 md:p-6 bg-white/10 rounded-xl md:rounded-2xl flex flex-col items-center">
+                        <span class="material-symbols-outlined text-on-primary text-3xl md:text-4xl mb-2 block">balance</span>
+                        <p class="font-label-md text-on-primary md:tracking-wider uppercase text-[10px] md:text-sm leading-tight">Ética y<br>Confidencialidad</p>
                     </div>
-                    <div class="text-center p-6 bg-white/10 rounded-2xl">
-                        <span class="material-symbols-outlined text-on-primary text-4xl mb-3 block">volunteer_activism</span>
-                        <p class="font-label-md text-on-primary tracking-wider uppercase text-sm">Empatía</p>
+                    <div class="text-center p-4 md:p-6 bg-white/10 rounded-xl md:rounded-2xl flex flex-col items-center">
+                        <span class="material-symbols-outlined text-on-primary text-3xl md:text-4xl mb-2 block">volunteer_activism</span>
+                        <p class="font-label-md text-on-primary md:tracking-wider uppercase text-[10px] md:text-sm leading-tight">Empatía</p>
                     </div>
-                    <div class="text-center p-6 bg-white/10 rounded-2xl">
-                        <span class="material-symbols-outlined text-on-primary text-4xl mb-3 block">workspace_premium</span>
-                        <p class="font-label-md text-on-primary tracking-wider uppercase text-sm">Profesionalismo</p>
+                    <div class="text-center p-4 md:p-6 bg-white/10 rounded-xl md:rounded-2xl flex flex-col items-center">
+                        <span class="material-symbols-outlined text-on-primary text-3xl md:text-4xl mb-2 block">workspace_premium</span>
+                        <p class="font-label-md text-on-primary md:tracking-wider uppercase text-[10px] md:text-sm leading-tight">Profesionalismo</p>
                     </div>
                 </div>
             </div>
@@ -332,16 +332,15 @@
     <section class="py-section-gap overflow-hidden">
         <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
             <div class="flex flex-col lg:flex-row items-center gap-16">
-                <div class="w-full lg:w-1/2 relative">
-                    <div class="relative z-10 rounded-3xl overflow-hidden aspect-[4/3] md:aspect-[4/5] property-card-shadow max-h-[340px] md:max-h-none">
-                        <img alt="Margarita Flores Portrait" class="w-full h-full object-cover object-top" src="/images/agent-profile.jpeg">
+                <div class="w-full lg:w-1/2 relative flex justify-center lg:block">
+                    <div class="relative z-10 rounded-3xl overflow-hidden aspect-[3/4] md:aspect-[4/5] property-card-shadow max-h-[480px] md:max-h-none w-full max-w-xs sm:max-w-sm lg:max-w-none">
+                        <img alt="Margarita Flores Portrait" class="w-full h-full object-cover object-center" src="/images/agent-profile.jpeg">
                     </div>
                     <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-primary-container rounded-full opacity-10 blur-3xl"></div>
                     <div class="absolute -top-10 -left-10 w-64 h-64 bg-secondary-container rounded-full opacity-20 blur-3xl"></div>
                 </div>
                 <div class="w-full lg:w-1/2">
                     <h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">¿Por qué elegirme como tu asesora?</h2>
-                    <p class="font-label-md text-label-md text-primary uppercase tracking-widest mb-8">Valor Agregado</p>
                     <div class="space-y-0">
                         <div class="flex gap-6 items-start">
                             <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-primary-container/10 flex items-center justify-center text-primary">
@@ -522,20 +521,27 @@
             }
         });
 
-        // Animación de entrada para tarjetas
+        // Animación de entrada para tarjetas — sin movimiento en mobile
+        const isMobile = window.innerWidth < 768;
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    if (!isMobile) entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.08 });
 
         document.querySelectorAll('.property-card-shadow').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+            if (isMobile) {
+                card.style.opacity = '0';
+                card.style.transition = 'opacity 0.5s ease';
+            } else {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+            }
             observer.observe(card);
         });
     </script>
