@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-       User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'admin@margaritaflores.mx'],
             [
                 'name'      => 'Admin Principal',
@@ -34,11 +34,11 @@ class UserSeeder extends Seeder
         ];
 
         foreach ($agentes as $agente) {
-            User::firstOrCreate(
+            User::updateOrCreate(
                 ['email' => $agente['email']],
                 [
                     'name'      => $agente['name'],
-                    'password'  => Hash::make('xs'),
+                    'password'  => Hash::make('password123'),
                     'role'      => 'agente',
                     'is_active' => true,
                 ]
