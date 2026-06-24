@@ -381,10 +381,10 @@
                         </div>
                         <div class="text-left">
                             <p class="font-label-sm text-outline-variant">Llamada Directa</p>
-                            <p class="font-headline-md text-headline-md text-inverse-on-surface">+52 669 110 57</p>
+                            <p class="font-headline-md text-headline-md text-inverse-on-surface">+52 669 110 5734</p>
                         </div>
                     </div>
-                    <a class="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-full font-label-md hover:shadow-xl hover:scale-105 transition-all" href="https://wa.me/5266911057?text={{ urlencode('Hola Margarita, me gustaría recibir asesoría inmobiliaria.') }}" target="_blank" rel="noopener">
+                    <a class="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-full font-label-md hover:shadow-xl hover:scale-105 transition-all" href="https://wa.me/526691105734?text={{ urlencode('Hola Margarita, me gustaría recibir asesoría inmobiliaria.') }}" target="_blank" rel="noopener">
                         <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.523.904 3.13 1.379 4.799 1.38h.003c5.739 0 10.409-4.669 10.412-10.411.002-2.78-1.082-5.393-3.056-7.368-1.973-1.973-4.585-3.055-7.366-3.056-5.738 0-10.402 4.663-10.405 10.41-.001 1.838.48 3.633 1.391 5.219l-1.054 3.847 3.934-1.032zm11.367-7.643c-.31-.155-1.837-.906-2.114-1.006-.277-.1-.478-.15-.678.15s-.777.906-.951 1.106-.349.225-.658.07c-.31-.155-1.307-.482-2.49-1.537-.919-.82-1.539-1.833-1.719-2.143-.18-.31-.019-.477.136-.631.14-.139.31-.35.465-.526.155-.175.206-.299.309-.499.103-.2.052-.375-.026-.531-.077-.156-.678-1.636-.93-2.241-.244-.59-.493-.51-.678-.519-.175-.009-.375-.01-.575-.01s-.526.075-.801.375c-.275.3-.1.575-1.1.575-1.2.75-.525 1.45.1 2.225.5 3.3 1.425 6.488 4.412 8.412 1.45.925 1.9 1.1 2.73 1.18.26.024.448.006.712-.032.274-.038.835-.342 1.052-.942s.217-1.112.15-1.226c-.067-.114-.247-.181-.557-.336z"></path></svg>
                         Chat en WhatsApp
                     </a>
