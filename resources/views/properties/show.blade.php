@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>{{ $property->title }} | Margarita Flores - Asesora Inmobiliaria</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Manrope:wght@400;500;600&family=Hanken+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <script id="tailwind-config">
         tailwind.config = {
@@ -29,11 +29,11 @@
                         "background": "#f9f9ff",
                     },
                     fontFamily: {
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "label-md": ["Hanken Grotesk"],
-                        "body-md": ["Manrope"],
-                        "body-lg": ["Manrope"],
+                        "headline-md": ["Cinzel"],
+                        "headline-lg": ["Cinzel"],
+                        "label-md": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
                     },
                     fontSize: {
                         "headline-lg": ["32px", {lineHeight: "40px", fontWeight: "700"}],

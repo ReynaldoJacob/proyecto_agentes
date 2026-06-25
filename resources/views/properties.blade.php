@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Propiedades | Margarita Flores - Asesora Inmobiliaria</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Manrope:wght@400;500;600&amp;family=Hanken+Grotesk:wght@500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
     <script id="tailwind-config">
         tailwind.config = {
@@ -81,14 +81,14 @@
                         "container-max": "1280px"
                     },
                     fontFamily: {
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "headline-xl": ["Plus Jakarta Sans"],
-                        "label-sm": ["Hanken Grotesk"],
-                        "label-md": ["Hanken Grotesk"],
-                        "body-lg": ["Manrope"],
-                        "body-md": ["Manrope"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"]
+                        "headline-md": ["Cinzel"],
+                        "headline-lg": ["Cinzel"],
+                        "headline-xl": ["Cinzel"],
+                        "label-sm": ["Montserrat"],
+                        "label-md": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "headline-lg-mobile": ["Cinzel"]
                     },
                     fontSize: {
                         "headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}],
