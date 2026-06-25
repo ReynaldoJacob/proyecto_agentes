@@ -198,11 +198,15 @@
                         </div>
                         <div class="flex flex-col items-center">
                             <span class="material-symbols-outlined text-primary-container mb-1">bathtub</span>
-                            <span class="font-label-sm text-on-surface-variant">2.5 Banos</span>
+                            <span class="font-label-sm text-on-surface-variant">2.5 Baños</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="material-symbols-outlined text-primary-container mb-1">directions_car</span>
+                            <span class="font-label-sm text-on-surface-variant">2 Autos</span>
                         </div>
                         <div class="flex flex-col items-center">
                             <span class="material-symbols-outlined text-primary-container mb-1">straighten</span>
-                            <span class="font-label-sm text-on-surface-variant">210 m2</span>
+                            <span class="font-label-sm text-on-surface-variant">210 m²</span>
                         </div>
                     </div>
                 </div>
@@ -223,11 +227,15 @@
                         </div>
                         <div class="flex flex-col items-center">
                             <span class="material-symbols-outlined text-primary-container mb-1">bathtub</span>
-                            <span class="font-label-sm text-on-surface-variant">2 Banos</span>
+                            <span class="font-label-sm text-on-surface-variant">2 Baños</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="material-symbols-outlined text-primary-container mb-1">directions_car</span>
+                            <span class="font-label-sm text-on-surface-variant">1 Auto</span>
                         </div>
                         <div class="flex flex-col items-center">
                             <span class="material-symbols-outlined text-primary-container mb-1">straighten</span>
-                            <span class="font-label-sm text-on-surface-variant">95 m2</span>
+                            <span class="font-label-sm text-on-surface-variant">95 m²</span>
                         </div>
                     </div>
                 </div>
@@ -248,11 +256,15 @@
                         </div>
                         <div class="flex flex-col items-center">
                             <span class="material-symbols-outlined text-primary-container mb-1">bathtub</span>
-                            <span class="font-label-sm text-on-surface-variant">4.5 Banos</span>
+                            <span class="font-label-sm text-on-surface-variant">4.5 Baños</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="material-symbols-outlined text-primary-container mb-1">directions_car</span>
+                            <span class="font-label-sm text-on-surface-variant">3 Autos</span>
                         </div>
                         <div class="flex flex-col items-center">
                             <span class="material-symbols-outlined text-primary-container mb-1">straighten</span>
-                            <span class="font-label-sm text-on-surface-variant">340 m2</span>
+                            <span class="font-label-sm text-on-surface-variant">340 m²</span>
                         </div>
                     </div>
                 </div>

@@ -139,15 +139,21 @@
                             {{ $property->currency }} {{ number_format($property->price, 0, '.', ',') }}
                         </p>
 
-                        <div class="flex gap-4 text-xs text-gray-500 mb-4">
+                        <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 mb-4">
                             @if($property->bedrooms !== null)
-                                <span>🛏 {{ $property->bedrooms }}</span>
+                                <span>🛏 {{ $property->bedrooms }} rec.</span>
                             @endif
                             @if($property->bathrooms !== null)
-                                <span>🚿 {{ $property->bathrooms }}</span>
+                                <span>🚿 {{ $property->bathrooms }} baños</span>
+                            @endif
+                            @if($property->parking_spaces !== null)
+                                <span>🚗 {{ $property->parking_spaces }} autos</span>
                             @endif
                             @if($property->area)
-                                <span>📐 {{ $property->area }} m²</span>
+                                <span>📐 {{ number_format($property->area, 0) }} m² const.</span>
+                            @endif
+                            @if($property->land_area)
+                                <span>🌿 {{ number_format($property->land_area, 0) }} m² terreno</span>
                             @endif
                         </div>
 

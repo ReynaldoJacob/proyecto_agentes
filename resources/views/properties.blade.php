@@ -285,13 +285,25 @@
                                 <span class="font-label-md text-label-sm">{{ $property->bathrooms }} Baños</span>
                             </div>
                             @endif
+                            @if($property->parking_spaces !== null)
+                            <div class="flex flex-col items-center gap-xs">
+                                <span class="material-symbols-outlined text-outline">directions_car</span>
+                                <span class="font-label-md text-label-sm">{{ $property->parking_spaces }} Autos</span>
+                            </div>
+                            @endif
                             @if($property->area)
                             <div class="flex flex-col items-center gap-xs">
                                 <span class="material-symbols-outlined text-outline">straighten</span>
-                                <span class="font-label-md text-label-sm">{{ $property->area }} m²</span>
+                                <span class="font-label-md text-label-sm">{{ number_format($property->area, 0) }} m² const.</span>
                             </div>
                             @endif
-                            @if(!$property->bedrooms && !$property->bathrooms && !$property->area)
+                            @if($property->land_area)
+                            <div class="flex flex-col items-center gap-xs">
+                                <span class="material-symbols-outlined text-outline">yard</span>
+                                <span class="font-label-md text-label-sm">{{ number_format($property->land_area, 0) }} m² terreno</span>
+                            </div>
+                            @endif
+                            @if(!$property->bedrooms && !$property->bathrooms && !$property->parking_spaces && !$property->area && !$property->land_area)
                             <div class="flex flex-col items-center gap-xs">
                                 <span class="material-symbols-outlined text-outline">landscape</span>
                                 <span class="font-label-md text-label-sm">{{ $property->getTypeLabel() }}</span>
