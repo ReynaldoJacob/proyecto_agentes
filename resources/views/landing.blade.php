@@ -182,94 +182,209 @@
             <p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto">Haz clic sobre cualquier propiedad para ver su galeria de fotos y detalles completos.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-            <div class="bg-surface-container-lowest rounded-2xl overflow-hidden property-card-shadow group cursor-pointer transition-transform duration-500 hover:-translate-y-2">
-                <div class="relative h-64 overflow-hidden">
-                    <img alt="Residencial Marina View" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfUif6n9QfoOkLm4AtjAORrf9fg6-uqtf3aaQsKxalFTsHdR9PGaqUcurUllP30z4eUGsma3a9HHVghbhnvxV-_gcfOFQPq0IDWAMqUOVZxCWXl0fhhxrByXj7zfpwQRkcv6QRFW7tUzRORhQ18nrHC6g99iT_jWf8sD-9YT8FgCTS3qClj42muwby46xcvR5JkyvSHdb9z_Lo5uYftt5Wr2ELnAX_4LSM02yyANXMkawbfSM9-ZetiwApyEh8XGL9ea0j0Rnuk2c">
-                    <div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full font-label-md">$4,200,000 MXN</div>
-                </div>
-                <div class="p-6">
-                    <span class="font-label-sm text-label-sm text-primary tracking-widest uppercase mb-2 block">Marina Mazatlan</span>
-                    <h3 class="font-headline-md text-headline-md mb-4 text-on-surface">Residencial Marina View</h3>
-                    <div class="flex justify-between items-center py-4 border-t border-outline-variant/30">
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">bed</span>
-                            <span class="font-label-sm text-on-surface-variant">3 Hab.</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">bathtub</span>
-                            <span class="font-label-sm text-on-surface-variant">2.5 Baños</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">directions_car</span>
-                            <span class="font-label-sm text-on-surface-variant">2 Autos</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">straighten</span>
-                            <span class="font-label-sm text-on-surface-variant">210 m²</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-surface-container-lowest rounded-2xl overflow-hidden property-card-shadow group cursor-pointer transition-transform duration-500 hover:-translate-y-2">
-                <div class="relative h-64 overflow-hidden">
-                    <img alt="Departamento Contemporaneo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdqbNhL_U6ZfN1QUnMP-2Fj9EEzsE7-K3KnYwBkGBprqarpS5NiW5jQvee8dNuVDROhnRatTkSKRp_NqPXNh9t4TZTxyZoCIcef9zCiA9zf4dUzMk--mreCc7P9eCuQol0btOYaYb4_lqudz2Ahm7lPdmMb-TbHJRhksSWsbCXUIbWpdXxuoLxbeYLpnYY1KPC1OoaKOJZjLpb_aBLgJ7CwUQvZpSN5IgomamDaAjKN5I-vIJU2CdOKrJvh8hEoXwLvjdae68m_dw">
-                    <div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full font-label-md">$2,850,000 MXN</div>
-                </div>
-                <div class="p-6">
-                    <span class="font-label-sm text-label-sm text-primary tracking-widest uppercase mb-2 block">Centro Historico</span>
-                    <h3 class="font-headline-md text-headline-md mb-4 text-on-surface">Depto. Contemporaneo</h3>
-                    <div class="flex justify-between items-center py-4 border-t border-outline-variant/30">
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">bed</span>
-                            <span class="font-label-sm text-on-surface-variant">2 Hab.</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">bathtub</span>
-                            <span class="font-label-sm text-on-surface-variant">2 Baños</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">directions_car</span>
-                            <span class="font-label-sm text-on-surface-variant">1 Auto</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">straighten</span>
-                            <span class="font-label-sm text-on-surface-variant">95 m²</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-surface-container-lowest rounded-2xl overflow-hidden property-card-shadow group cursor-pointer transition-transform duration-500 hover:-translate-y-2">
-                <div class="relative h-64 overflow-hidden">
-                    <img alt="Villa de Playa Pacific" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj9VexsuJhV5WxDeF4qB0jH9uqETipCdpDHyJ33X0eAbt1CBwDVBbd-alk6xdj2HE3AK5NWEgcPL1DsTq5r-bzAqMJ6WlhjIbTAwDLzKhgWAMUttzdjU8iuoBnlZ9MEP_TL6dVlLrNfeyBVC8VA2FFg4SbdJXHVo0BA_BSobx_ONz6hsk9-UZpTvBiyYRyREoCV-l0I_6eJHP6Agd5w1ahFsk2C8N3iNqWSmGqTH6uDIOmPtaBt3oBRy2s1yyCtKV4TiMXPvky5xA">
-                    <div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full font-label-md">$6,900,000 MXN</div>
-                </div>
-                <div class="p-6">
-                    <span class="font-label-sm text-label-sm text-primary tracking-widest uppercase mb-2 block">Zona Cerritos</span>
-                    <h3 class="font-headline-md text-headline-md mb-4 text-on-surface">Villa de Playa Pacific</h3>
-                    <div class="flex justify-between items-center py-4 border-t border-outline-variant/30">
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">bed</span>
-                            <span class="font-label-sm text-on-surface-variant">4 Hab.</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">bathtub</span>
-                            <span class="font-label-sm text-on-surface-variant">4.5 Baños</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">directions_car</span>
-                            <span class="font-label-sm text-on-surface-variant">3 Autos</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-primary-container mb-1">straighten</span>
-                            <span class="font-label-sm text-on-surface-variant">340 m²</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        @if($featuredProperties->isEmpty())
+        <div class="text-center py-12 text-on-surface-variant">
+            <span class="material-symbols-outlined text-5xl mb-3 block">home_work</span>
+            <p class="font-body-md text-body-md">Próximamente propiedades destacadas.</p>
         </div>
+        @else
+        <div class="relative" id="featured-carousel-wrapper" data-count="{{ $featuredProperties->count() }}">
+            {{-- Flecha izquierda --}}
+            <button id="carousel-prev"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-11 h-11 rounded-full bg-surface-container-lowest shadow-md flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary transition-all duration-200">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+
+            {{-- Track --}}
+            <div class="overflow-hidden" id="carousel-overflow">
+                <div class="flex gap-6 transition-transform duration-500 ease-in-out" id="carousel-track">
+                    @foreach($featuredProperties as $property)
+                    <a href="{{ route('properties.show', $property) }}"
+                       class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-surface-container-lowest rounded-2xl overflow-hidden property-card-shadow group transition-shadow duration-300 hover:shadow-xl block">
+                        <div class="relative h-64 overflow-hidden">
+                            @if($property->cover_image)
+                                <img alt="{{ $property->title }}"
+                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                     src="{{ Storage::url($property->cover_image) }}">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center bg-surface-container text-outline">
+                                    <span class="material-symbols-outlined text-6xl">home</span>
+                                </div>
+                            @endif
+                            <div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full font-label-md">
+                                {{ $property->currency }} {{ number_format($property->price, 0, '.', ',') }}
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <span class="font-label-sm text-label-sm text-primary tracking-widest uppercase mb-2 block">
+                                {{ $property->city }}{{ $property->state ? ', ' . $property->state : '' }}
+                            </span>
+                            <h3 class="font-headline-md text-headline-md mb-4 text-on-surface">{{ $property->title }}</h3>
+                            <div class="flex justify-between items-center py-4 border-t border-outline-variant/30">
+                                @if($property->bedrooms !== null)
+                                <div class="flex flex-col items-center">
+                                    <span class="material-symbols-outlined text-primary-container mb-1">bed</span>
+                                    <span class="font-label-sm text-on-surface-variant">{{ $property->bedrooms }} Hab.</span>
+                                </div>
+                                @endif
+                                @if($property->bathrooms !== null)
+                                <div class="flex flex-col items-center">
+                                    <span class="material-symbols-outlined text-primary-container mb-1">bathtub</span>
+                                    <span class="font-label-sm text-on-surface-variant">{{ $property->bathrooms }} Baños</span>
+                                </div>
+                                @endif
+                                @if($property->parking_spaces !== null)
+                                <div class="flex flex-col items-center">
+                                    <span class="material-symbols-outlined text-primary-container mb-1">directions_car</span>
+                                    <span class="font-label-sm text-on-surface-variant">{{ $property->parking_spaces }} Autos</span>
+                                </div>
+                                @endif
+                                @if($property->area)
+                                <div class="flex flex-col items-center">
+                                    <span class="material-symbols-outlined text-primary-container mb-1">straighten</span>
+                                    <span class="font-label-sm text-on-surface-variant">{{ number_format($property->area, 0) }} m²</span>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                    </a>
+                    @endforeach
+                </div>
+            </div>
+
+            {{-- Flecha derecha --}}
+            <button id="carousel-next"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-11 h-11 rounded-full bg-surface-container-lowest shadow-md flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary transition-all duration-200">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+        </div>
+
+        {{-- Dots --}}
+        <div class="flex justify-center gap-2 mt-8" id="carousel-dots">
+            @foreach($featuredProperties as $property)
+            <button class="carousel-dot h-2.5 rounded-full transition-all duration-300 {{ $loop->first ? 'w-6 bg-primary' : 'w-2.5 bg-outline-variant' }}"
+                    data-index="{{ $loop->index }}"></button>
+            @endforeach
+        </div>
+
+        <script>
+        (function () {
+            var track    = document.getElementById('carousel-track');
+            var overflow = document.getElementById('carousel-overflow');
+            var wrapper  = document.getElementById('featured-carousel-wrapper');
+            var n        = parseInt(wrapper.dataset.count, 10);
+            var pos      = 0;
+            var paused   = false;
+            var speed    = 0.5; // px por frame (~30px/s a 60fps)
+            var dotFrame = 0;
+
+            function visibleCount() {
+                return window.innerWidth >= 768 ? 3 : 1;
+            }
+
+            // Clonar tarjetas para loop infinito
+            Array.from(track.children).forEach(function(c) {
+                track.appendChild(c.cloneNode(true));
+            });
+
+            // Sin transición CSS — el movimiento lo maneja rAF
+            track.style.transition = 'none';
+
+            function cardStep() {
+                var c = track.children[0];
+                return c ? c.offsetWidth + 24 : 0;
+            }
+
+            function loopWidth() {
+                return n * cardStep();
+            }
+
+            function render() {
+                track.style.transform = 'translateX(-' + pos + 'px)';
+            }
+
+            function syncDots() {
+                var step = cardStep();
+                if (!step) return;
+                var active = Math.floor(pos / step) % n;
+                document.querySelectorAll('.carousel-dot').forEach(function(dot, j) {
+                    var a = j === active;
+                    dot.classList.toggle('bg-primary', a);
+                    dot.classList.toggle('w-6', a);
+                    dot.classList.toggle('bg-outline-variant', !a);
+                    dot.classList.toggle('w-2.5', !a);
+                });
+            }
+
+            function needsScroll() {
+                return n > visibleCount();
+            }
+
+            function tick() {
+                if (!paused && needsScroll()) {
+                    pos += speed;
+                    var lw = loopWidth();
+                    if (lw && pos >= lw) pos -= lw;
+                    render();
+                    dotFrame++;
+                    if (dotFrame % 40 === 0) syncDots();
+                }
+                requestAnimationFrame(tick);
+            }
+
+            function jumpTo(newPos) {
+                var lw = loopWidth();
+                pos = lw ? ((newPos % lw) + lw) % lw : 0;
+                render();
+                syncDots();
+            }
+
+            // Pausa al hover
+            wrapper.addEventListener('mouseenter', function() { paused = true; });
+            wrapper.addEventListener('mouseleave', function() { paused = false; });
+
+            // Flechas: saltan una tarjeta
+            document.getElementById('carousel-prev').addEventListener('click', function() {
+                jumpTo(pos - cardStep());
+            });
+            document.getElementById('carousel-next').addEventListener('click', function() {
+                jumpTo(pos + cardStep());
+            });
+
+            // Dots: saltan a esa tarjeta
+            document.querySelectorAll('.carousel-dot').forEach(function(dot, j) {
+                dot.addEventListener('click', function() {
+                    jumpTo(j * cardStep());
+                });
+            });
+
+            // Swipe táctil
+            var tx = 0;
+            overflow.addEventListener('touchstart', function(e) {
+                tx = e.touches[0].clientX;
+                paused = true;
+            }, { passive: true });
+            overflow.addEventListener('touchend', function(e) {
+                var d = tx - e.changedTouches[0].clientX;
+                if (Math.abs(d) > 50) jumpTo(pos + (d > 0 ? cardStep() : -cardStep()));
+                paused = false;
+            }, { passive: true });
+
+            // Ocultar controles si no hay suficientes propiedades para scroll
+            function updateControls() {
+                var show = needsScroll();
+                document.getElementById('carousel-prev').style.display = show ? '' : 'none';
+                document.getElementById('carousel-next').style.display = show ? '' : 'none';
+                document.getElementById('carousel-dots').style.display = show ? '' : 'none';
+            }
+
+            window.addEventListener('resize', function() { render(); updateControls(); });
+
+            updateControls();
+            requestAnimationFrame(tick);
+        })();
+        </script>
+        @endif
     </section>
 
     {{-- Sección Visión / Misión / Objetivo --}}

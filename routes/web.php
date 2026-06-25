@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PropertiesController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Agent\PropertyController as AgentPropertyController;
+use App\Models\Property;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,13 @@ use App\Http\Controllers\Agent\PropertyController as AgentPropertyController;
 */
 
 Route::get('/', function () {
-    return view('landing');
+    $featuredProperties = Property::where('is_featured', true)
+        ->where('is_active', true)
+        ->where('status', 'disponible')
+        ->latest()
+        ->limit(6)
+        ->get();
+    return view('landing', compact('featuredProperties'));
 });
 
 Route::get('/vue', function () {
