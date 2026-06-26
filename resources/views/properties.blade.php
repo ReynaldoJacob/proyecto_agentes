@@ -247,8 +247,8 @@
                     if ($property->status === 'reservado') $badgeText = 'RESERVADO';
                 @endphp
                 <!-- Property Card -->
-                <a href="{{ route('properties.show', $property) }}"
-                   class="bg-surface-container-lowest rounded-xl overflow-hidden group shadow-sm hover:shadow-xl transition-all duration-500 block">
+                <div class="bg-surface-container-lowest rounded-xl overflow-hidden group shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col">
+                    <a href="{{ route('properties.show', $property) }}" class="block">
                     <div class="relative h-72 overflow-hidden bg-surface-container">
                         @if($property->cover_image)
                             <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -321,12 +321,25 @@
                                     </span>
                                 @endif
                             </div>
-                            <span class="bg-surface-container-high hover:bg-primary hover:text-on-primary p-3 rounded-full transition-all">
-                                <span class="material-symbols-outlined">visibility</span>
-                            </span>
                         </div>
                     </div>
-                </a>
+                    </a>
+                    <div class="px-gutter pb-gutter flex gap-2 mt-auto">
+                        <a href="{{ route('properties.show', $property) }}"
+                           class="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg hover:opacity-90 transition-all">
+                            <span class="material-symbols-outlined text-[16px]">visibility</span>
+                            Ver detalles
+                        </a>
+                        @if($property->maps_url)
+                        <a href="{{ $property->maps_url }}" target="_blank" rel="noopener"
+                           class="flex items-center justify-center gap-1.5 px-4 py-2.5 border border-outline-variant text-on-surface-variant text-sm font-semibold rounded-lg hover:bg-surface-container hover:text-primary transition-all"
+                           title="Ver ubicación en Google Maps">
+                            <span class="material-symbols-outlined text-[16px]">map</span>
+                            Ubicación
+                        </a>
+                        @endif
+                    </div>
+                </div>
                 @empty
                 <div class="col-span-full text-center py-12">
                     <p class="text-on-surface-variant">No hay propiedades disponibles en este momento.</p>

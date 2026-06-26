@@ -12,7 +12,7 @@ class Property extends Model
         'type', 'operation_type', 'status',
         'price', 'currency',
         'bedrooms', 'bathrooms', 'parking_spaces', 'area', 'land_area',
-        'address', 'city', 'state', 'latitude', 'longitude',
+        'address', 'city', 'state', 'latitude', 'longitude', 'maps_url',
         'cover_image', 'images', 'features',
         'delivery_date', 'construction_progress',
         'min_nights', 'max_nights',

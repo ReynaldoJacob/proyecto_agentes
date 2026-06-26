@@ -90,11 +90,18 @@
                 </div>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-1">{{ $property->title }}</h2>
-                @if($property->address)
-                    <p class="text-gray-500 text-sm mb-3">📍 {{ $property->address }}, {{ $property->city }}, {{ $property->state }}</p>
-                @else
-                    <p class="text-gray-500 text-sm mb-3">📍 {{ $property->city }}, {{ $property->state }}</p>
-                @endif
+                <div class="flex items-center gap-3 mb-3">
+                    <p class="text-gray-500 text-sm">
+                        📍 {{ $property->address ? $property->address.', ' : '' }}{{ $property->city }}, {{ $property->state }}
+                    </p>
+                    @if($property->maps_url)
+                    <a href="{{ $property->maps_url }}" target="_blank" rel="noopener"
+                       class="inline-flex items-center gap-1 text-xs font-semibold text-white bg-green-500 hover:bg-green-600 px-3 py-1 rounded-full transition flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Ver en Google Maps
+                    </a>
+                    @endif
+                </div>
 
                 <p class="text-3xl font-bold text-blue-700">
                     {{ $property->currency }} {{ number_format($property->price, 0, '.', ',') }}

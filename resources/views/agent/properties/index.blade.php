@@ -166,6 +166,13 @@
                                class="flex-1 text-center text-xs py-1.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
                                 Editar
                             </a>
+                            @if($property->maps_url)
+                            <a href="{{ $property->maps_url }}" target="_blank" rel="noopener"
+                               title="Ver ubicación en Google Maps"
+                               class="text-xs py-1.5 px-3 border border-green-200 text-green-600 rounded-lg hover:bg-green-50">
+                                📍
+                            </a>
+                            @endif
                             <form method="POST" action="{{ route('agent.properties.destroy', $property) }}"
                                   onsubmit="return confirm('¿Eliminar esta propiedad?')">
                                 @csrf

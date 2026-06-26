@@ -166,10 +166,19 @@
                         </div>
                         <h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">{{ $property->title }}</h1>
                         @if($property->address || $property->city)
-                            <p class="text-on-surface-variant flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[18px]">location_on</span>
-                                {{ implode(', ', array_filter([$property->address, $property->city, $property->state])) }}
-                            </p>
+                            <div class="flex flex-wrap items-center gap-3">
+                                <p class="text-on-surface-variant flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[18px]">location_on</span>
+                                    {{ implode(', ', array_filter([$property->address, $property->city, $property->state])) }}
+                                </p>
+                                @if($property->maps_url)
+                                <a href="{{ $property->maps_url }}" target="_blank" rel="noopener"
+                                   class="inline-flex items-center gap-1.5 text-xs font-semibold bg-primary text-white px-3 py-1.5 rounded-full hover:opacity-90 transition flex-shrink-0">
+                                    <span class="material-symbols-outlined text-[14px]">map</span>
+                                    Ver en Google Maps
+                                </a>
+                                @endif
+                            </div>
                         @endif
                     </div>
 
@@ -265,7 +274,8 @@
                                 </div>
                                 <div class="bg-blue-200 rounded-full h-3">
                                     <div class="bg-primary h-3 rounded-full transition-all"
-                                         style="width: {{ $property->construction_progress }}%"></div>
+                                         id="progress-bar"
+                                         data-progress="{{ $property->construction_progress }}"></div>
                                 </div>
                             </div>
                         @endif
@@ -386,6 +396,9 @@
     </footer>
 
     <script>
+        var pb = document.getElementById('progress-bar');
+        if (pb) pb.style.width = pb.dataset.progress + '%';
+
         // Cambio de imagen en galería
         document.querySelectorAll('.gallery-thumb').forEach(thumb => {
             thumb.addEventListener('click', function() {

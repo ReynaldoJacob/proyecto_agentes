@@ -199,8 +199,8 @@
             <div class="overflow-hidden" id="carousel-overflow">
                 <div class="flex gap-6 transition-transform duration-500 ease-in-out" id="carousel-track">
                     @foreach($featuredProperties as $property)
-                    <a href="{{ route('properties.show', $property) }}"
-                       class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-surface-container-lowest rounded-2xl overflow-hidden property-card-shadow group transition-shadow duration-300 hover:shadow-xl block">
+                    <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-surface-container-lowest rounded-2xl overflow-hidden property-card-shadow group transition-shadow duration-300 hover:shadow-xl flex flex-col">
+                        <a href="{{ route('properties.show', $property) }}" class="block">
                         <div class="relative h-64 overflow-hidden">
                             @if($property->cover_image)
                                 <img alt="{{ $property->title }}"
@@ -247,7 +247,17 @@
                                 @endif
                             </div>
                         </div>
-                    </a>
+                        </a>
+                        @if($property->maps_url)
+                        <div class="px-6 pb-6 mt-auto">
+                            <a href="{{ $property->maps_url }}" target="_blank" rel="noopener"
+                               class="flex items-center justify-center gap-2 w-full py-2.5 border border-outline-variant text-on-surface-variant text-sm font-semibold rounded-xl hover:bg-surface-container hover:text-primary transition-all">
+                                <span class="material-symbols-outlined text-[16px]">map</span>
+                                Ver ubicación en Google Maps
+                            </a>
+                        </div>
+                        @endif
+                    </div>
                     @endforeach
                 </div>
             </div>
@@ -382,6 +392,7 @@
 
             updateControls();
             requestAnimationFrame(tick);
+            
         })();
         </script>
         @endif

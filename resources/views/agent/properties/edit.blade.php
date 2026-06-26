@@ -4,368 +4,538 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Propiedad | Margarita Flores</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#004370',
+                        'primary-dark': '#005b96',
+                        surface: '#f9f9ff',
+                        'on-surface': '#161c27',
+                        'on-muted': '#414750',
+                        border: '#c1c7d1',
+                    },
+                    fontFamily: {
+                        heading: ['Cinzel', 'serif'],
+                        body: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        * { font-family: 'Montserrat', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block; line-height: 1; vertical-align: middle;
+        }
+        .inp {
+            display: block; width: 100%;
+            border: 1.5px solid #c1c7d1; border-radius: 10px;
+            padding: 10px 14px; font-size: 14px; color: #161c27;
+            background: #fff; outline: none; transition: border-color .15s, box-shadow .15s;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .inp:focus { border-color: #004370; box-shadow: 0 0 0 3px rgba(0,67,112,.1); }
+        .inp::placeholder { color: #a0aab4; }
+        .lbl {
+            display: block; font-size: 11px; font-weight: 600;
+            color: #414750; text-transform: uppercase; letter-spacing: .06em;
+            margin-bottom: 6px;
+        }
+        .card {
+            background: #fff; border: 1.5px solid #e2e6f0;
+            border-radius: 16px; padding: 24px;
+        }
+        .card-title {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 20px; padding-bottom: 14px;
+            border-bottom: 1px solid #f0f2f8;
+        }
+        .card-icon {
+            width: 34px; height: 34px; border-radius: 10px;
+            background: rgba(0,67,112,.08);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .drop-zone {
+            border: 2px dashed #c1c7d1; border-radius: 12px;
+            padding: 28px 20px; text-align: center; cursor: pointer;
+            transition: border-color .2s, background .2s;
+        }
+        .drop-zone:hover, .drop-zone.over { border-color: #004370; background: #f0f4ff; }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body style="background:#f4f6fb; min-height:100vh;">
 
-<nav class="fixed top-0 w-full z-50 bg-white shadow-sm border-b border-gray-200">
-    <div class="px-6 py-4 max-w-4xl mx-auto flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <a href="{{ route('agent.properties.show', $property) }}" class="text-gray-500 hover:text-gray-800 text-sm">← Ver Propiedad</a>
-            <h1 class="text-xl font-bold text-blue-700">Editar Propiedad</h1>
-        </div>
+{{-- Navbar --}}
+<nav style="position:fixed;top:0;width:100%;z-index:50;background:#fff;border-bottom:1px solid #e2e6f0;box-shadow:0 1px 4px rgba(0,0,0,.06);">
+    <div style="max-width:860px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:12px;">
+        <a href="{{ route('agent.properties.show', $property) }}"
+           style="display:flex;align-items:center;gap:6px;color:#414750;font-size:13px;font-weight:500;text-decoration:none;transition:color .15s;"
+           onmouseover="this.style.color='#004370'" onmouseout="this.style.color='#414750'">
+            <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+            Ver Propiedad
+        </a>
+        <span style="width:1px;height:16px;background:#e2e6f0;"></span>
+        <span style="font-family:'Cinzel',serif;color:#004370;font-weight:600;font-size:13px;letter-spacing:.04em;">Editar Propiedad</span>
     </div>
 </nav>
 
-<main class="pt-24 px-4 pb-16 max-w-4xl mx-auto">
+<main style="max-width:860px;margin:0 auto;padding:88px 24px 80px;">
 
     @if($errors->any())
-        <div class="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
-            <p class="text-red-800 font-medium text-sm mb-1">Por favor corrige los siguientes errores:</p>
-            <ul class="text-red-700 text-sm list-disc list-inside space-y-0.5">
+    <div style="margin-bottom:20px;background:#fff5f5;border:1.5px solid #fecaca;border-radius:12px;padding:16px;display:flex;gap:12px;">
+        <span class="material-symbols-outlined" style="color:#ef4444;flex-shrink:0;">error</span>
+        <div>
+            <p style="font-weight:600;font-size:13px;color:#b91c1c;margin-bottom:6px;">Corrige los siguientes errores:</p>
+            <ul style="font-size:13px;color:#dc2626;list-style:disc;padding-left:16px;">
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
+    </div>
     @endif
 
-    <form method="POST" action="{{ route('agent.properties.update', $property) }}" enctype="multipart/form-data" class="space-y-8">
+    <form method="POST" action="{{ route('agent.properties.update', $property) }}" enctype="multipart/form-data" id="property-form">
         @csrf
         @method('PUT')
 
-        {{-- Clasificación --}}
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-base font-semibold text-gray-800 mb-5 pb-2 border-b">Tipo de Operación y Propiedad</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div style="display:flex;flex-direction:column;gap:20px;">
 
+        {{-- 1. Clasificación --}}
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon"><span class="material-symbols-outlined" style="color:#004370;font-size:18px;">category</span></div>
+                <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:#161c27;letter-spacing:.04em;">Clasificación</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de Operación <span class="text-red-500">*</span></label>
-                    <select name="operation_type" id="operation_type" required
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    <label class="lbl">Operación <span style="color:#ef4444;text-transform:none;">*</span></label>
+                    <select name="operation_type" id="operation_type" required class="inp">
                         @foreach($operationLabels as $val => $label)
                             <option value="{{ $val }}" @selected(old('operation_type', $property->operation_type) === $val)>{{ $label }}</option>
                         @endforeach
                     </select>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de Propiedad <span class="text-red-500">*</span></label>
-                    <select name="type" id="type" required
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    <label class="lbl">Tipo de Propiedad <span style="color:#ef4444;text-transform:none;">*</span></label>
+                    <select name="type" id="type" required class="inp">
                         @foreach($typeLabels as $val => $label)
                             <option value="{{ $val }}" @selected(old('type', $property->type) === $val)>{{ $label }}</option>
                         @endforeach
                     </select>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
-                    <select name="status"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    <label class="lbl">Estado</label>
+                    <select name="status" class="inp">
                         @foreach($statusLabels as $val => $label)
                             <option value="{{ $val }}" @selected(old('status', $property->status) === $val)>{{ $label }}</option>
                         @endforeach
                     </select>
                 </div>
-
-                <div class="flex items-center gap-3 pt-5">
-                    <input type="checkbox" name="is_featured" id="is_featured" value="1"
-                           @checked(old('is_featured', $property->is_featured))
-                           class="w-4 h-4 accent-blue-600">
-                    <label for="is_featured" class="text-sm text-gray-700">Marcar como Destacada</label>
-                </div>
             </div>
+            @php $isFeatured = old('is_featured', $property->is_featured); @endphp
+            <label style="display:flex;align-items:center;gap:10px;margin-top:16px;cursor:pointer;width:fit-content;">
+                <div style="position:relative;">
+                    <input type="checkbox" name="is_featured" id="is_featured" value="1" @checked($isFeatured)
+                           style="position:absolute;opacity:0;width:0;height:0;" onchange="toggleSwitch(this)">
+                    <div id="switch-track" style="width:40px;height:22px;border-radius:99px;background:{{ $isFeatured ? '#004370' : '#c1c7d1' }};transition:background .2s;"></div>
+                    <div id="switch-thumb" style="position:absolute;top:3px;left:{{ $isFeatured ? '21px' : '3px' }};width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;"></div>
+                </div>
+                <span style="font-size:13px;font-weight:500;color:#161c27;">Marcar como Propiedad Destacada</span>
+            </label>
         </div>
 
-        {{-- Información General --}}
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-base font-semibold text-gray-800 mb-5 pb-2 border-b">Información General</h2>
-            <div class="space-y-4">
+        {{-- 2. Información General --}}
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon"><span class="material-symbols-outlined" style="color:#004370;font-size:18px;">description</span></div>
+                <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:#161c27;letter-spacing:.04em;">Información General</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px;">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Título <span class="text-red-500">*</span></label>
+                    <label class="lbl">Título <span style="color:#ef4444;text-transform:none;">*</span></label>
                     <input type="text" name="title" value="{{ old('title', $property->title) }}" required
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                           placeholder="Ej. Casa en Marina con vista al mar" class="inp">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
+                    <label class="lbl">Descripción</label>
                     <textarea name="description" rows="4"
-                              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">{{ old('description', $property->description) }}</textarea>
+                              placeholder="Describe la propiedad..."
+                              class="inp" style="resize:none;">{{ old('description', $property->description) }}</textarea>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Precio <span class="text-red-500">*</span></label>
-                        <input type="number" name="price" value="{{ old('price', $property->price) }}" required min="0" step="0.01"
-                               class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        <label class="lbl">Precio <span style="color:#ef4444;text-transform:none;">*</span></label>
+                        <input type="number" name="price" value="{{ old('price', $property->price) }}" required min="0" step="0.01" class="inp">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Moneda</label>
-                        <select name="currency"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                            <option value="USD" @selected(old('currency', $property->currency) === 'USD')>USD</option>
-                            <option value="MXN" @selected(old('currency', $property->currency) === 'MXN')>MXN</option>
+                        <label class="lbl">Moneda</label>
+                        <select name="currency" class="inp">
+                            <option value="USD" @selected(old('currency', $property->currency) === 'USD')>USD — Dólares</option>
+                            <option value="MXN" @selected(old('currency', $property->currency) === 'MXN')>MXN — Pesos</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Año Construcción</label>
+                        <label class="lbl">Año de Construcción</label>
                         <input type="number" name="year_built" value="{{ old('year_built', $property->year_built) }}"
-                               min="1900" max="{{ date('Y') + 5 }}"
-                               class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                               min="1900" max="{{ date('Y') + 5 }}" placeholder="{{ date('Y') }}" class="inp">
                     </div>
                 </div>
             </div>
         </div>
 
-        {{-- Características --}}
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-base font-semibold text-gray-800 mb-5 pb-2 border-b">Características Físicas</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {{-- 3. Características --}}
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon"><span class="material-symbols-outlined" style="color:#004370;font-size:18px;">home</span></div>
+                <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:#161c27;letter-spacing:.04em;">Características Físicas</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;">
                 <div id="bedrooms-field">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Recámaras</label>
-                    <input type="number" name="bedrooms" value="{{ old('bedrooms', $property->bedrooms) }}" min="0"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    <label class="lbl">🛏 Recámaras</label>
+                    <input type="number" name="bedrooms" value="{{ old('bedrooms', $property->bedrooms) }}" min="0" class="inp">
                 </div>
                 <div id="bathrooms-field">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Baños</label>
-                    <input type="number" name="bathrooms" value="{{ old('bathrooms', $property->bathrooms) }}" min="0" step="0.5"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    <label class="lbl">🚿 Baños</label>
+                    <input type="number" name="bathrooms" value="{{ old('bathrooms', $property->bathrooms) }}" min="0" step="0.5" class="inp">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Estacionamientos</label>
-                    <input type="number" name="parking_spaces" value="{{ old('parking_spaces', $property->parking_spaces) }}" min="0"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    <label class="lbl">🚗 Estacionamientos</label>
+                    <input type="number" name="parking_spaces" value="{{ old('parking_spaces', $property->parking_spaces) }}" min="0" class="inp">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Área Construida (m²)</label>
-                    <input type="number" name="area" value="{{ old('area', $property->area) }}" min="0" step="0.01"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    <label class="lbl">📐 m² Construcción</label>
+                    <input type="number" name="area" value="{{ old('area', $property->area) }}" min="0" step="0.01" class="inp">
                 </div>
-                <div class="col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Área Terreno (m²)</label>
-                    <input type="number" name="land_area" value="{{ old('land_area', $property->land_area) }}" min="0" step="0.01"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                <div style="grid-column:span 2;">
+                    <label class="lbl">🌿 m² Terreno</label>
+                    <input type="number" name="land_area" value="{{ old('land_area', $property->land_area) }}" min="0" step="0.01" class="inp">
                 </div>
             </div>
-
-            <div class="mt-5">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Amenidades</label>
-                <div id="features-container" class="flex flex-wrap gap-2 mb-3">
-                    @foreach(old('features', $property->features ?? []) as $feat)
-                        <div class="feature-tag flex items-center gap-1 bg-blue-50 text-blue-700 text-sm px-3 py-1 rounded-full">
-                            <input type="hidden" name="features[]" value="{{ $feat }}">
-                            <span>{{ $feat }}</span>
-                            <button type="button" onclick="this.parentElement.remove()" class="text-blue-400 hover:text-red-500 ml-1">✕</button>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="flex gap-2">
-                    <input type="text" id="feature-input" placeholder="Agregar amenidad..."
-                           class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                    <button type="button" onclick="addFeature()"
-                            class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">Agregar</button>
-                </div>
-            </div>
-        </div>
-
-        {{-- Preventa --}}
-        <div id="preventa-section" class="bg-white rounded-xl shadow-sm p-6 hidden">
-            <h2 class="text-base font-semibold text-gray-800 mb-5 pb-2 border-b">Detalles de Preventa</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Entrega</label>
-                    <input type="date" name="delivery_date"
-                           value="{{ old('delivery_date', $property->delivery_date?->format('Y-m-d')) }}"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Avance de Construcción (%)</label>
-                    <input type="number" name="construction_progress"
-                           value="{{ old('construction_progress', $property->construction_progress) }}"
-                           min="0" max="100"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                </div>
-            </div>
-        </div>
-
-        {{-- Vacacional --}}
-        <div id="vacacional-section" class="bg-white rounded-xl shadow-sm p-6 hidden">
-            <h2 class="text-base font-semibold text-gray-800 mb-5 pb-2 border-b">Renta Vacacional</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Noches Mínimas</label>
-                    <input type="number" name="min_nights" value="{{ old('min_nights', $property->min_nights) }}" min="1"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Noches Máximas</label>
-                    <input type="number" name="max_nights" value="{{ old('max_nights', $property->max_nights) }}" min="1"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                </div>
-            </div>
-        </div>
-
-        {{-- Ubicación --}}
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-base font-semibold text-gray-800 mb-5 pb-2 border-b">Ubicación</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="sm:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Dirección</label>
-                    <input type="text" name="address" value="{{ old('address', $property->address) }}"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
-                    <input type="text" name="city" value="{{ old('city', $property->city) }}"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
-                    <input type="text" name="state" value="{{ old('state', $property->state) }}"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Latitud</label>
-                    <input type="number" name="latitude" value="{{ old('latitude', $property->latitude) }}" step="any"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Longitud</label>
-                    <input type="number" name="longitude" value="{{ old('longitude', $property->longitude) }}" step="any"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
-                </div>
-            </div>
-        </div>
-
-        {{-- Imágenes --}}
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-base font-semibold text-gray-800 mb-5 pb-2 border-b">Imágenes</h2>
-
-            {{-- Portada actual --}}
-            @if($property->cover_image)
-                <div class="mb-4">
-                    <p class="text-sm font-medium text-gray-700 mb-2">Portada actual</p>
-                    <img src="{{ Storage::url($property->cover_image) }}" class="h-32 rounded-lg object-cover">
-                </div>
-            @endif
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ $property->cover_image ? 'Reemplazar portada' : 'Imagen Principal (portada)' }}
-                </label>
-                <input type="file" name="cover_image" accept="image/*" id="cover-input"
-                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
-                              file:rounded-lg file:border-0 file:text-sm file:font-medium
-                              file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                <div id="cover-preview" class="mt-2"></div>
-            </div>
-
-            {{-- Galería actual --}}
-            @if($property->images && count($property->images))
-                <div class="mb-4">
-                    <p class="text-sm font-medium text-gray-700 mb-2">Galería actual (selecciona para eliminar)</p>
-                    <div class="flex flex-wrap gap-3">
-                        @foreach($property->images as $img)
-                            <label class="relative cursor-pointer group">
-                                <input type="checkbox" name="remove_images[]" value="{{ $img }}"
-                                       class="sr-only peer">
-                                <img src="{{ Storage::url($img) }}"
-                                     class="h-20 w-28 object-cover rounded-lg peer-checked:opacity-40 peer-checked:ring-2 peer-checked:ring-red-500 group-hover:opacity-90">
-                                <span class="absolute inset-0 flex items-center justify-center text-red-600 text-xl font-bold opacity-0 peer-checked:opacity-100">✕</span>
-                            </label>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Agregar imágenes</label>
-                <input type="file" name="images[]" accept="image/*" multiple id="images-input"
-                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
-                              file:rounded-lg file:border-0 file:text-sm file:font-medium
-                              file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100">
-                <div id="images-preview" class="mt-2 flex flex-wrap gap-2"></div>
+                <label class="lbl">Amenidades</label>
+                <div id="features-container" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;min-height:32px;">
+                    @foreach(old('features', $property->features ?? []) as $feat)
+                    <div class="feature-tag" style="display:flex;align-items:center;gap:6px;background:rgba(0,67,112,.08);color:#004370;font-size:12px;font-weight:600;padding:5px 12px;border-radius:99px;">
+                        <input type="hidden" name="features[]" value="{{ $feat }}">
+                        <span>{{ $feat }}</span>
+                        <button type="button" onclick="this.parentElement.remove()" style="display:flex;background:none;border:none;cursor:pointer;color:#004370;padding:0;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#004370'">
+                            <span class="material-symbols-outlined" style="font-size:13px;">close</span>
+                        </button>
+                    </div>
+                    @endforeach
+                </div>
+                <div style="display:flex;gap:8px;">
+                    <input type="text" id="feature-input" placeholder="Ej. Alberca, Terraza, A/C…"
+                           class="inp" style="flex:1;">
+                    <button type="button" onclick="addFeature()"
+                            style="display:flex;align-items:center;gap:6px;padding:10px 16px;background:#f0f4ff;color:#004370;border:1.5px solid #c1c7d1;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;"
+                            onmouseover="this.style.background='rgba(0,67,112,.12)'" onmouseout="this.style.background='#f0f4ff'">
+                        <span class="material-symbols-outlined" style="font-size:16px;">add</span> Agregar
+                    </button>
+                </div>
             </div>
         </div>
 
-        {{-- Notas --}}
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-base font-semibold text-gray-800 mb-5 pb-2 border-b">Notas Internas</h2>
+        {{-- 4. Ubicación --}}
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon"><span class="material-symbols-outlined" style="color:#004370;font-size:18px;">location_on</span></div>
+                <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:#161c27;letter-spacing:.04em;">Ubicación</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div style="grid-column:span 2;">
+                    <label class="lbl">Dirección</label>
+                    <input type="text" name="address" value="{{ old('address', $property->address) }}"
+                           placeholder="Calle, número, colonia..." class="inp">
+                </div>
+                <div>
+                    <label class="lbl">Ciudad</label>
+                    <input type="text" name="city" value="{{ old('city', $property->city) }}" class="inp">
+                </div>
+                <div>
+                    <label class="lbl">Estado</label>
+                    <input type="text" name="state" value="{{ old('state', $property->state) }}" class="inp">
+                </div>
+                <div style="grid-column:span 2;">
+                    <label class="lbl">Link de Google Maps</label>
+                    <div style="position:relative;">
+                        <span class="material-symbols-outlined" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#a0aab4;font-size:18px;pointer-events:none;">map</span>
+                        <input type="url" name="maps_url" value="{{ old('maps_url', $property->maps_url) }}"
+                               placeholder="https://maps.google.com/..."
+                               class="inp" style="padding-left:40px;">
+                    </div>
+                    <p style="font-size:11px;color:#a0aab4;margin-top:5px;">
+                        Abre Google Maps → busca la propiedad → "Compartir" → "Copiar enlace" → pégalo aquí.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        {{-- 5. Imágenes --}}
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon"><span class="material-symbols-outlined" style="color:#004370;font-size:18px;">photo_library</span></div>
+                <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:#161c27;letter-spacing:.04em;">Imágenes</span>
+            </div>
+
+            {{-- Portada --}}
+            <p style="font-size:11px;font-weight:700;color:#414750;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">
+                Foto de portada
+            </p>
+            <div id="cover-drop" class="drop-zone" onclick="document.getElementById('cover-input').click()">
+                <div id="cover-placeholder" style="{{ $property->cover_image ? 'display:none;' : '' }}">
+                    <span class="material-symbols-outlined" style="font-size:40px;color:#c1c7d1;display:block;margin-bottom:8px;">add_photo_alternate</span>
+                    <p style="font-size:14px;font-weight:600;color:#414750;margin:0 0 4px;">Arrastra aquí o haz clic para seleccionar</p>
+                    <p style="font-size:12px;color:#a0aab4;margin:0;">JPG, PNG, WEBP · Máx. 5 MB</p>
+                </div>
+                <div id="cover-preview-wrap" style="{{ $property->cover_image ? '' : 'display:none;' }}">
+                    <img id="cover-preview-img"
+                         style="max-height:180px;border-radius:10px;object-fit:cover;margin:0 auto;display:block;"
+                         src="{{ $property->cover_image ? Storage::url($property->cover_image) : '' }}" alt="">
+                    <button type="button" onclick="event.stopPropagation();removeCover()"
+                            style="margin:10px auto 0;display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;color:#ef4444;font-size:12px;font-weight:600;">
+                        <span class="material-symbols-outlined" style="font-size:15px;">delete</span>
+                        {{ $property->cover_image ? 'Reemplazar portada' : 'Quitar portada' }}
+                    </button>
+                </div>
+            </div>
+            <input type="file" id="cover-input" name="cover_image" accept="image/*" style="display:none;">
+
+            {{-- Galería existente --}}
+            @if($property->images && count($property->images))
+            <p style="font-size:11px;font-weight:700;color:#414750;text-transform:uppercase;letter-spacing:.06em;margin:20px 0 8px;">
+                Fotos actuales <span style="font-weight:400;text-transform:none;color:#a0aab4;">— marca para eliminar</span>
+            </p>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+                @foreach($property->images as $img)
+                <label style="position:relative;cursor:pointer;border-radius:10px;overflow:hidden;aspect-ratio:1;display:block;">
+                    <input type="checkbox" name="remove_images[]" value="{{ $img }}" class="sr-only" id="rm_{{ $loop->index }}">
+                    <img src="{{ Storage::url($img) }}"
+                         style="width:100%;height:100%;object-fit:cover;transition:opacity .15s;"
+                         id="ri_{{ $loop->index }}"
+                         onclick="toggleRemove({{ $loop->index }})"
+                         alt="">
+                    <div id="rx_{{ $loop->index }}"
+                         style="display:none;position:absolute;inset:0;background:rgba(239,68,68,.55);border-radius:10px;align-items:center;justify-content:center;">
+                        <span class="material-symbols-outlined" style="color:#fff;font-size:28px;">delete</span>
+                    </div>
+                </label>
+                @endforeach
+            </div>
+            @endif
+
+            {{-- Agregar nuevas fotos --}}
+            <p style="font-size:11px;font-weight:700;color:#414750;text-transform:uppercase;letter-spacing:.06em;margin:20px 0 8px;">
+                Agregar fotos <span style="font-weight:400;text-transform:none;color:#a0aab4;">(máx. 10 nuevas)</span>
+            </p>
+            <div id="gallery-drop" class="drop-zone" onclick="document.getElementById('gallery-trigger').click()">
+                <span class="material-symbols-outlined" style="font-size:40px;color:#c1c7d1;display:block;margin-bottom:8px;">collections</span>
+                <p id="gallery-label" style="font-size:14px;font-weight:600;color:#414750;margin:0 0 4px;">Arrastra fotos o haz clic para agregar</p>
+                <p style="font-size:12px;color:#a0aab4;margin:0;">Puedes agregar una por una o varias al mismo tiempo</p>
+            </div>
+            <input type="file" id="gallery-trigger" accept="image/*" multiple style="display:none;">
+            <input type="file" id="gallery-input" name="images[]" accept="image/*" multiple style="display:none;">
+            <div id="gallery-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px;"></div>
+        </div>
+
+        {{-- 6. Preventa (condicional) --}}
+        <div id="preventa-section" class="card" style="display:none;">
+            <div class="card-title">
+                <div class="card-icon" style="background:rgba(217,119,6,.08);"><span class="material-symbols-outlined" style="color:#d97706;font-size:18px;">construction</span></div>
+                <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:#161c27;letter-spacing:.04em;">Detalles de Preventa</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div>
+                    <label class="lbl">Fecha estimada de entrega</label>
+                    <input type="date" name="delivery_date"
+                           value="{{ old('delivery_date', $property->delivery_date?->format('Y-m-d')) }}"
+                           class="inp">
+                </div>
+                <div>
+                    <label class="lbl">Avance de construcción (%)</label>
+                    <input type="number" name="construction_progress"
+                           value="{{ old('construction_progress', $property->construction_progress) }}"
+                           min="0" max="100" placeholder="0–100" class="inp">
+                </div>
+            </div>
+        </div>
+
+        {{-- 7. Vacacional (condicional) --}}
+        <div id="vacacional-section" class="card" style="display:none;">
+            <div class="card-title">
+                <div class="card-icon" style="background:rgba(14,116,144,.08);"><span class="material-symbols-outlined" style="color:#0e7490;font-size:18px;">beach_access</span></div>
+                <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:#161c27;letter-spacing:.04em;">Renta Vacacional</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div>
+                    <label class="lbl">Noches mínimas</label>
+                    <input type="number" name="min_nights" value="{{ old('min_nights', $property->min_nights) }}" min="1" placeholder="2" class="inp">
+                </div>
+                <div>
+                    <label class="lbl">Noches máximas</label>
+                    <input type="number" name="max_nights" value="{{ old('max_nights', $property->max_nights) }}" min="1" placeholder="30" class="inp">
+                </div>
+            </div>
+        </div>
+
+        {{-- 8. Notas --}}
+        <div class="card">
+            <div class="card-title">
+                <div class="card-icon"><span class="material-symbols-outlined" style="color:#004370;font-size:18px;">sticky_note_2</span></div>
+                <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:#161c27;letter-spacing:.04em;">Notas Internas</span>
+            </div>
             <textarea name="notes" rows="3"
-                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">{{ old('notes', $property->notes) }}</textarea>
+                      placeholder="Notas privadas, recordatorios, datos de contacto..."
+                      class="inp" style="resize:none;">{{ old('notes', $property->notes) }}</textarea>
         </div>
 
         {{-- Botones --}}
-        <div class="flex justify-end gap-3">
+        <div style="display:flex;justify-content:flex-end;gap:12px;padding-top:4px;">
             <a href="{{ route('agent.properties.show', $property) }}"
-               class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm">
+               style="padding:11px 24px;border:1.5px solid #c1c7d1;color:#414750;border-radius:10px;font-size:14px;font-weight:500;text-decoration:none;transition:background .15s;"
+               onmouseover="this.style.background='#f0f4ff'" onmouseout="this.style.background='transparent'">
                 Cancelar
             </a>
             <button type="submit"
-                    class="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium">
+                    style="display:flex;align-items:center;gap:8px;padding:11px 28px;background:#004370;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,67,112,.25);transition:background .15s;font-family:'Montserrat',sans-serif;"
+                    onmouseover="this.style.background='#005b96'" onmouseout="this.style.background='#004370'">
+                <span class="material-symbols-outlined" style="font-size:18px;">save</span>
                 Guardar Cambios
             </button>
         </div>
+
+        </div>{{-- end flex column --}}
     </form>
 </main>
 
 <script>
-    function addFeature() {
-        const input = document.getElementById('feature-input');
-        const val = input.value.trim();
-        if (!val) return;
+// ── Toggle switch ────────────────────────────────────────
+function toggleSwitch(cb) {
+    document.getElementById('switch-track').style.background = cb.checked ? '#004370' : '#c1c7d1';
+    document.getElementById('switch-thumb').style.left = cb.checked ? '21px' : '3px';
+}
 
-        const container = document.getElementById('features-container');
-        const tag = document.createElement('div');
-        tag.className = 'feature-tag flex items-center gap-1 bg-blue-50 text-blue-700 text-sm px-3 py-1 rounded-full';
-        tag.innerHTML = `<input type="hidden" name="features[]" value="${val.replace(/"/g, '&quot;')}">
-                         <span>${val}</span>
-                         <button type="button" onclick="this.parentElement.remove()" class="text-blue-400 hover:text-red-500 ml-1">✕</button>`;
-        container.appendChild(tag);
-        input.value = '';
+// ── Secciones condicionales ──────────────────────────────
+var opSel = document.getElementById('operation_type');
+function toggleSections() {
+    var v = opSel.value;
+    document.getElementById('preventa-section').style.display   = v === 'preventa'        ? '' : 'none';
+    document.getElementById('vacacional-section').style.display = v === 'renta_vacacional' ? '' : 'none';
+}
+opSel.addEventListener('change', toggleSections); toggleSections();
+
+var typeSel = document.getElementById('type');
+function toggleType() {
+    var t = typeSel.value === 'terreno';
+    ['bedrooms-field','bathrooms-field'].forEach(function(id){ document.getElementById(id).style.opacity = t ? '.35' : '1'; });
+}
+typeSel.addEventListener('change', toggleType); toggleType();
+
+// ── Amenidades ───────────────────────────────────────────
+function addFeature() {
+    var inp = document.getElementById('feature-input');
+    var v   = inp.value.trim(); if (!v) return;
+    var c   = document.getElementById('features-container');
+    var tag = document.createElement('div');
+    tag.className = 'feature-tag';
+    tag.style = 'display:flex;align-items:center;gap:6px;background:rgba(0,67,112,.08);color:#004370;font-size:12px;font-weight:600;padding:5px 12px;border-radius:99px;';
+    tag.innerHTML = '<input type="hidden" name="features[]" value="' + v.replace(/"/g,'&quot;') + '"><span>' + v + '</span>'
+        + '<button type="button" onclick="this.parentElement.remove()" style="display:flex;background:none;border:none;cursor:pointer;color:#004370;padding:0;" onmouseover="this.style.color=\'#ef4444\'" onmouseout="this.style.color=\'#004370\'">'
+        + '<span class="material-symbols-outlined" style="font-size:13px;">close</span></button>';
+    c.appendChild(tag); inp.value = ''; inp.focus();
+}
+document.getElementById('feature-input').addEventListener('keydown', function(e){ if(e.key==='Enter'){e.preventDefault();addFeature();} });
+
+// ── Eliminar fotos existentes ────────────────────────────
+function toggleRemove(i) {
+    var cb  = document.getElementById('rm_' + i);
+    var img = document.getElementById('ri_' + i);
+    var ovr = document.getElementById('rx_' + i);
+    cb.checked = !cb.checked;
+    img.style.opacity = cb.checked ? '.35' : '1';
+    ovr.style.display = cb.checked ? 'flex' : 'none';
+}
+
+// ── Portada ──────────────────────────────────────────────
+var coverInput = document.getElementById('cover-input');
+var coverDrop  = document.getElementById('cover-drop');
+
+function showCover(src) {
+    document.getElementById('cover-preview-img').src = src;
+    document.getElementById('cover-placeholder').style.display = 'none';
+    document.getElementById('cover-preview-wrap').style.display = '';
+}
+function removeCover() {
+    coverInput.value = '';
+    document.getElementById('cover-preview-img').src = '';
+    document.getElementById('cover-placeholder').style.display = '';
+    document.getElementById('cover-preview-wrap').style.display = 'none';
+}
+coverInput.addEventListener('change', function(){
+    if(this.files[0]){ var r=new FileReader(); r.onload=function(e){showCover(e.target.result);}; r.readAsDataURL(this.files[0]); }
+});
+coverDrop.addEventListener('dragover',  function(e){ e.preventDefault(); this.classList.add('over'); });
+coverDrop.addEventListener('dragleave', function(){  this.classList.remove('over'); });
+coverDrop.addEventListener('drop',      function(e){ e.preventDefault(); this.classList.remove('over');
+    var f=e.dataTransfer.files[0]; if(f&&f.type.startsWith('image/')){
+        var dt=new DataTransfer(); dt.items.add(f); coverInput.files=dt.files;
+        var r=new FileReader(); r.onload=function(ev){showCover(ev.target.result);}; r.readAsDataURL(f);
     }
+});
 
-    document.getElementById('feature-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') { e.preventDefault(); addFeature(); }
+// ── Galería nuevas fotos ─────────────────────────────────
+var galleryDrop    = document.getElementById('gallery-drop');
+var galleryTrigger = document.getElementById('gallery-trigger');
+var galleryInput   = document.getElementById('gallery-input');
+var galleryGrid    = document.getElementById('gallery-grid');
+var gDT            = new DataTransfer();
+
+function renderGallery() {
+    galleryGrid.innerHTML = '';
+    var files = Array.from(gDT.files).slice(0,10);
+    files.forEach(function(file, i) {
+        var url  = URL.createObjectURL(file);
+        var item = document.createElement('div');
+        item.style = 'position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:#e8eeff;';
+        item.innerHTML = '<img src="'+url+'" style="width:100%;height:100%;object-fit:cover;">'
+            +'<button type="button" onclick="removeGallery('+i+')" style="position:absolute;top:4px;right:4px;width:22px;height:22px;background:rgba(0,0,0,.55);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background=\'#ef4444\'" onmouseout="this.style.background=\'rgba(0,0,0,.55)\'">'
+            +'<span class="material-symbols-outlined" style="font-size:13px;color:#fff;">close</span></button>';
+        galleryGrid.appendChild(item);
     });
+    var sync = new DataTransfer();
+    files.forEach(function(f){ sync.items.add(f); });
+    galleryInput.files = sync.files;
+    document.getElementById('gallery-label').textContent = files.length
+        ? files.length+'/10 fotos · arrastra o haz clic para agregar más'
+        : 'Arrastra fotos o haz clic para agregar';
+}
 
-    const opSelect = document.getElementById('operation_type');
-    function toggleSections() {
-        const val = opSelect.value;
-        document.getElementById('preventa-section').classList.toggle('hidden', val !== 'preventa');
-        document.getElementById('vacacional-section').classList.toggle('hidden', val !== 'renta_vacacional');
-    }
-    opSelect.addEventListener('change', toggleSections);
-    toggleSections();
-
-    const typeSelect = document.getElementById('type');
-    function toggleTypeFields() {
-        const isTerreno = typeSelect.value === 'terreno';
-        document.getElementById('bedrooms-field').style.opacity = isTerreno ? '0.3' : '1';
-        document.getElementById('bathrooms-field').style.opacity = isTerreno ? '0.3' : '1';
-    }
-    typeSelect.addEventListener('change', toggleTypeFields);
-    toggleTypeFields();
-
-    document.getElementById('cover-input').addEventListener('change', function() {
-        const preview = document.getElementById('cover-preview');
-        preview.innerHTML = '';
-        if (this.files[0]) {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(this.files[0]);
-            img.className = 'h-32 rounded-lg object-cover';
-            preview.appendChild(img);
-        }
+function addGalleryFiles(files) {
+    Array.from(files).forEach(function(f){
+        if(!f.type.startsWith('image/')||gDT.files.length>=10) return;
+        var dup=false; for(var i=0;i<gDT.files.length;i++){if(gDT.files[i].name===f.name&&gDT.files[i].size===f.size){dup=true;break;}}
+        if(!dup) gDT.items.add(f);
     });
+    renderGallery();
+}
 
-    document.getElementById('images-input').addEventListener('change', function() {
-        const preview = document.getElementById('images-preview');
-        preview.innerHTML = '';
-        Array.from(this.files).slice(0, 10).forEach(file => {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(file);
-            img.className = 'h-20 w-20 rounded-lg object-cover';
-            preview.appendChild(img);
-        });
-    });
+function removeGallery(idx) {
+    var n=new DataTransfer(); Array.from(gDT.files).forEach(function(f,i){if(i!==idx) n.items.add(f);}); gDT=n; renderGallery();
+}
+
+galleryTrigger.addEventListener('change', function(){ addGalleryFiles(this.files); this.value=''; });
+galleryDrop.addEventListener('dragover',  function(e){ e.preventDefault(); this.classList.add('over'); });
+galleryDrop.addEventListener('dragleave', function(){  this.classList.remove('over'); });
+galleryDrop.addEventListener('drop',      function(e){ e.preventDefault(); this.classList.remove('over'); addGalleryFiles(e.dataTransfer.files); });
 </script>
 </body>
 </html>

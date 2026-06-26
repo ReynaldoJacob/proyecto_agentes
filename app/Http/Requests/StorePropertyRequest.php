@@ -31,6 +31,7 @@ class StorePropertyRequest extends FormRequest
             'state'                  => ['nullable', 'string', 'max:100'],
             'latitude'               => ['nullable', 'numeric', 'between:-90,90'],
             'longitude'              => ['nullable', 'numeric', 'between:-180,180'],
+            'maps_url'               => ['nullable', 'url', 'max:5000'],
             'cover_image'            => ['nullable', 'image', 'max:5120'],
             'images.*'               => ['nullable', 'image', 'max:5120'],
             'features'               => ['nullable', 'array'],
