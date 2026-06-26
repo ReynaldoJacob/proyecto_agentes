@@ -145,8 +145,8 @@
                 <div style="position:relative;">
                     <input type="checkbox" name="is_featured" id="is_featured" value="1" @checked($isFeatured)
                            style="position:absolute;opacity:0;width:0;height:0;" onchange="toggleSwitch(this)">
-                    <div id="switch-track" style="width:40px;height:22px;border-radius:99px;background:{{ $isFeatured ? '#004370' : '#c1c7d1' }};transition:background .2s;"></div>
-                    <div id="switch-thumb" style="position:absolute;top:3px;left:{{ $isFeatured ? '21px' : '3px' }};width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;"></div>
+                    <div id="switch-track" data-on="{{ $isFeatured ? '1' : '0' }}" style="width:40px;height:22px;border-radius:99px;background:#c1c7d1;transition:background .2s;"></div>
+                    <div id="switch-thumb" style="position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;"></div>
                 </div>
                 <span style="font-size:13px;font-weight:500;color:#161c27;">Marcar como Propiedad Destacada</span>
             </label>
@@ -211,7 +211,15 @@
                     <input type="number" name="parking_spaces" value="{{ old('parking_spaces', $property->parking_spaces) }}" min="0" class="inp">
                 </div>
                 <div>
-                    <label class="lbl">📐 m² Construcción</label>
+                    <label class="lbl" style="display:flex;align-items:center;gap:4px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <rect x="3" y="3" width="14" height="14" rx="0.5"/>
+                            <line x1="3" y1="20.5" x2="17" y2="20.5"/><polyline points="5,19 3,20.5 5,22"/><polyline points="15,19 17,20.5 15,22"/>
+                            <line x1="20.5" y1="3" x2="20.5" y2="17"/><polyline points="19,5 20.5,3 22,5"/><polyline points="19,15 20.5,17 22,15"/>
+                            <text x="5.5" y="13.5" font-size="6.5" font-family="serif" font-weight="bold" stroke="none" fill="currentColor">m²</text>
+                        </svg>
+                        m² Construcción
+                    </label>
                     <input type="number" name="area" value="{{ old('area', $property->area) }}" min="0" step="0.01" class="inp">
                 </div>
                 <div style="grid-column:span 2;">
@@ -292,12 +300,12 @@
                 Foto de portada
             </p>
             <div id="cover-drop" class="drop-zone" onclick="document.getElementById('cover-input').click()">
-                <div id="cover-placeholder" style="{{ $property->cover_image ? 'display:none;' : '' }}">
+                <div id="cover-placeholder" @if($property->cover_image) style="display:none;" @endif>
                     <span class="material-symbols-outlined" style="font-size:40px;color:#c1c7d1;display:block;margin-bottom:8px;">add_photo_alternate</span>
                     <p style="font-size:14px;font-weight:600;color:#414750;margin:0 0 4px;">Arrastra aquí o haz clic para seleccionar</p>
                     <p style="font-size:12px;color:#a0aab4;margin:0;">JPG, PNG, WEBP · Máx. 5 MB</p>
                 </div>
-                <div id="cover-preview-wrap" style="{{ $property->cover_image ? '' : 'display:none;' }}">
+                <div id="cover-preview-wrap" @if(!$property->cover_image) style="display:none;" @endif>
                     <img id="cover-preview-img"
                          style="max-height:180px;border-radius:10px;object-fit:cover;margin:0 auto;display:block;"
                          src="{{ $property->cover_image ? Storage::url($property->cover_image) : '' }}" alt="">
@@ -322,7 +330,8 @@
                     <img src="{{ Storage::url($img) }}"
                          style="width:100%;height:100%;object-fit:cover;transition:opacity .15s;"
                          id="ri_{{ $loop->index }}"
-                         onclick="toggleRemove({{ $loop->index }})"
+                         data-idx="{{ $loop->index }}"
+                         class="rm-img"
                          alt="">
                     <div id="rx_{{ $loop->index }}"
                          style="display:none;position:absolute;inset:0;background:rgba(239,68,68,.55);border-radius:10px;align-items:center;justify-content:center;">

@@ -145,8 +145,8 @@
                 <div style="position:relative;">
                     <input type="checkbox" name="is_featured" id="is_featured" value="1" @checked(old('is_featured'))
                            style="position:absolute;opacity:0;width:0;height:0;" onchange="toggleSwitch(this)">
-                    <div id="switch-track" style="width:40px;height:22px;border-radius:99px;background:{{ old('is_featured') ? '#004370' : '#c1c7d1' }};transition:background .2s;"></div>
-                    <div id="switch-thumb" style="position:absolute;top:3px;left:{{ old('is_featured') ? '21px' : '3px' }};width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;"></div>
+                    <div id="switch-track" data-on="{{ old('is_featured') ? '1' : '0' }}" style="width:40px;height:22px;border-radius:99px;background:#c1c7d1;transition:background .2s;"></div>
+                    <div id="switch-thumb" style="position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;"></div>
                 </div>
                 <span style="font-size:13px;font-weight:500;color:#161c27;">Marcar como Propiedad Destacada</span>
             </label>
@@ -211,7 +211,15 @@
                     <input type="number" name="parking_spaces" value="{{ old('parking_spaces') }}" min="0" class="inp">
                 </div>
                 <div>
-                    <label class="lbl">📐 m² Construcción</label>
+                    <label class="lbl" style="display:flex;align-items:center;gap:4px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <rect x="3" y="3" width="14" height="14" rx="0.5"/>
+                            <line x1="3" y1="20.5" x2="17" y2="20.5"/><polyline points="5,19 3,20.5 5,22"/><polyline points="15,19 17,20.5 15,22"/>
+                            <line x1="20.5" y1="3" x2="20.5" y2="17"/><polyline points="19,5 20.5,3 22,5"/><polyline points="19,15 20.5,17 22,15"/>
+                            <text x="5.5" y="13.5" font-size="6.5" font-family="serif" font-weight="bold" stroke="none" fill="currentColor">m²</text>
+                        </svg>
+                        m² Construcción
+                    </label>
                     <input type="number" name="area" value="{{ old('area') }}" min="0" step="0.01" class="inp">
                 </div>
                 <div style="grid-column:span 2;">

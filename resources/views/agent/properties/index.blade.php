@@ -150,7 +150,15 @@
                                 <span>🚗 {{ $property->parking_spaces }} autos</span>
                             @endif
                             @if($property->area)
-                                <span>📐 {{ number_format($property->area, 0) }} m² const.</span>
+                                <span class="inline-flex items-center gap-0.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                        <rect x="3" y="3" width="14" height="14" rx="0.5"/>
+                                        <line x1="3" y1="20.5" x2="17" y2="20.5"/><polyline points="5,19 3,20.5 5,22"/><polyline points="15,19 17,20.5 15,22"/>
+                                        <line x1="20.5" y1="3" x2="20.5" y2="17"/><polyline points="19,5 20.5,3 22,5"/><polyline points="19,15 20.5,17 22,15"/>
+                                        <text x="5.5" y="13.5" font-size="6.5" font-family="serif" font-weight="bold" stroke="none" fill="currentColor">m²</text>
+                                    </svg>
+                                    {{ number_format($property->area, 0) }} m² const.
+                                </span>
                             @endif
                             @if($property->land_area)
                                 <span>🌿 {{ number_format($property->land_area, 0) }} m² terreno</span>

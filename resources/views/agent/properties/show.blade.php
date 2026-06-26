@@ -138,7 +138,12 @@
                     @endif
                     @if($property->area)
                         <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <p class="text-2xl mb-1">📐</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.4" class="mx-auto mb-1 text-gray-400">
+                                <rect x="3" y="3" width="14" height="14" rx="0.5"/>
+                                <line x1="3" y1="20.5" x2="17" y2="20.5"/><polyline points="5,19 3,20.5 5,22"/><polyline points="15,19 17,20.5 15,22"/>
+                                <line x1="20.5" y1="3" x2="20.5" y2="17"/><polyline points="19,5 20.5,3 22,5"/><polyline points="19,15 20.5,17 22,15"/>
+                                <text x="5.5" y="13.5" font-size="6.5" font-family="serif" font-weight="bold" stroke="none" fill="currentColor">m²</text>
+                            </svg>
                             <p class="text-xl font-bold text-gray-800">{{ $property->area }}</p>
                             <p class="text-xs text-gray-500">m² Const.</p>
                         </div>

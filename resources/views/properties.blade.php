@@ -293,7 +293,12 @@
                             @endif
                             @if($property->area)
                             <div class="flex flex-col items-center gap-xs">
-                                <span class="material-symbols-outlined text-outline">straighten</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" class="text-outline">
+                                    <rect x="3" y="3" width="14" height="14" rx="0.5"/>
+                                    <line x1="3" y1="20.5" x2="17" y2="20.5"/><polyline points="5,19 3,20.5 5,22"/><polyline points="15,19 17,20.5 15,22"/>
+                                    <line x1="20.5" y1="3" x2="20.5" y2="17"/><polyline points="19,5 20.5,3 22,5"/><polyline points="19,15 20.5,17 22,15"/>
+                                    <text x="5.5" y="13.5" font-size="6.5" font-family="serif" font-weight="bold" stroke="none" fill="currentColor">m²</text>
+                                </svg>
                                 <span class="font-label-md text-label-sm">{{ number_format($property->area, 0) }} m² const.</span>
                             </div>
                             @endif
