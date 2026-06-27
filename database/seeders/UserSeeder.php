@@ -26,23 +26,14 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // Agentes
-        $agentes = [
-            ['name' => 'Margarita Flores',  'email' => 'margarita@margaritaflores.mx'],
-            ['name' => 'Carlos Mendoza',    'email' => 'carlos@margaritaflores.mx'],
-            ['name' => 'Ana Ramírez',       'email' => 'ana@margaritaflores.mx'],
-        ];
-
-        foreach ($agentes as $agente) {
-            User::updateOrCreate(
-                ['email' => $agente['email']],
-                [
-                    'name'      => $agente['name'],
-                    'password'  => Hash::make('password123'),
-                    'role'      => 'agente',
-                    'is_active' => true,
-                ]
-            );
-        }
+        User::updateOrCreate(
+            ['email' => 'maggyflog85@gmail.com'],
+            [
+                'name'      => 'Margarita Flores',
+                'password'  => Hash::make('password123'),
+                'role'      => 'agente',
+                'is_active' => true,
+            ]
+        );
     }
 }

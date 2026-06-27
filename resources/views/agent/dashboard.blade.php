@@ -65,10 +65,11 @@
             <span class="text-xs bg-surface-container text-on-surface-variant px-2.5 py-0.5 rounded-full font-body font-medium">Agente</span>
         </div>
         <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2 text-sm text-on-surface-variant">
-                <span class="material-symbols-outlined text-base">account_circle</span>
-                <span class="font-medium hidden sm:block">{{ auth()->user()->name }}</span>
-            </div>
+            <a href="{{ route('agent.password') }}"
+               class="flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-primary transition font-medium">
+                <span class="material-symbols-outlined text-base">manage_accounts</span>
+                <span class="hidden sm:inline">{{ auth()->user()->name }}</span>
+            </a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit"
@@ -82,6 +83,21 @@
 </nav>
 
 <main class="pt-20 max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+    {{-- Alerta cambio de contraseña (solo hasta que la cambie) --}}
+    @if(!auth()->user()->password_changed)
+        <div class="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-2xl px-5 py-4">
+            <span class="material-symbols-outlined text-amber-500 mt-0.5">lock_open</span>
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-amber-800">Cambia tu contraseña provisional</p>
+                <p class="text-xs text-amber-700 mt-0.5">Por seguridad, te recomendamos actualizar la contraseña que te fue asignada.</p>
+            </div>
+            <a href="{{ route('agent.password') }}"
+               class="shrink-0 text-xs font-semibold text-amber-800 border border-amber-300 bg-amber-100 hover:bg-amber-200 px-3 py-1.5 rounded-lg transition">
+                Cambiar ahora
+            </a>
+        </div>
+    @endif
 
     {{-- Header saludo --}}
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">

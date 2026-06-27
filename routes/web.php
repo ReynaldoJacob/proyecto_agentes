@@ -52,6 +52,10 @@ Route::middleware('auth')->group(function () {
             return view('agent.dashboard');
         })->name('dashboard');
 
+        Route::get('/password', [AuthController::class, 'showChangePasswordForm'])->name('password');
+        Route::post('/password', [AuthController::class, 'changePassword'])->name('password.update');
+        Route::post('/email', [AuthController::class, 'changeEmail'])->name('email.update');
+
         Route::resource('properties', AgentPropertyController::class);
     });
 });

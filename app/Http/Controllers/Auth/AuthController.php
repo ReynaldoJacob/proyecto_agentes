@@ -77,6 +77,56 @@ class AuthController extends Controller
         return redirect()->intended('/agent/dashboard');
     }
 
+    public function showChangePasswordForm()
+    {
+        return view('agent.password');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required'],
+            'password'         => ['required', 'min:8', 'confirmed'],
+        ], [
+            'current_password.required' => 'Ingresa tu contraseña actual.',
+            'password.required'         => 'Ingresa una nueva contraseña.',
+            'password.min'              => 'La contraseña debe tener al menos 8 caracteres.',
+            'password.confirmed'        => 'Las contraseñas no coinciden.',
+        ]);
+
+        if (!Hash::check($request->current_password, auth()->user()->password)) {
+            return back()->withErrors(['current_password' => 'La contraseña actual es incorrecta.'])->withInput();
+        }
+
+        auth()->user()->update([
+            'password'         => Hash::make($request->password),
+            'password_changed' => true,
+        ]);
+
+        return back()->with('success_password', 'Contraseña actualizada correctamente.');
+    }
+
+    public function changeEmail(Request $request)
+    {
+        $request->validate([
+            'email'    => ['required', 'email', 'unique:users,email,' . auth()->id()],
+            'password' => ['required'],
+        ], [
+            'email.required' => 'Ingresa un correo electrónico.',
+            'email.email'    => 'El correo no es válido.',
+            'email.unique'   => 'Este correo ya está en uso.',
+            'password.required' => 'Confirma tu contraseña para cambiar el correo.',
+        ]);
+
+        if (!Hash::check($request->password, auth()->user()->password)) {
+            return back()->withErrors(['email_password' => 'La contraseña es incorrecta.'])->withInput();
+        }
+
+        auth()->user()->update(['email' => $request->email]);
+
+        return back()->with('success_email', 'Correo actualizado correctamente.');
+    }
+
     /**
      * Handle logout.
      *
