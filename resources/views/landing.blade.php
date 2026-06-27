@@ -152,7 +152,7 @@
 
     <header class="relative min-h-[100svh] md:min-h-[90vh] flex items-end md:items-center pt-16 pb-12 md:pb-0">
         <div class="absolute inset-0 z-0 overflow-hidden">
-            <video autoplay loop muted playsinline
+            <video id="hero-video" autoplay loop muted playsinline preload="auto"
                    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;"
                    src="/videos/promo.mp4"></video>
             {{-- Mobile: gradiente de abajo hacia arriba --}}
@@ -640,6 +640,20 @@
                 menuIcon.textContent = 'menu';
             });
         });
+
+        // Forzar reproducción del video en mobile
+        var heroVideo = document.getElementById('hero-video');
+        if (heroVideo) {
+            heroVideo.muted = true;
+            var playPromise = heroVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(function() {
+                    document.addEventListener('touchstart', function() {
+                        heroVideo.play();
+                    }, { once: true });
+                });
+            }
+        }
 
         // Parallax desactivado (fondo es video)
 
