@@ -88,7 +88,7 @@
         <div class="flex justify-between items-center px-4 md:px-margin-desktop py-3 md:py-4 max-w-container-max mx-auto">
             <a href="/">
                 <div style="height:68px;overflow:hidden;display:flex;align-items:center;">
-                    <img src="/images/logo.png" alt="Margarita Flores" style="height:120px;width:auto;filter:brightness(0.45);">
+                    <img src="/images/logo.png" alt="Margarita Flores" style="height:120px;width:auto;">
                 </div>
             </a>
             <div class="hidden md:flex gap-8 items-center">
