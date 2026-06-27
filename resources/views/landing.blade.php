@@ -118,9 +118,10 @@
 <body class="bg-surface font-body-md text-on-surface overflow-x-hidden">
     <nav class="fixed top-0 w-full z-50 backdrop-blur-md bg-surface/90 shadow-sm border-b border-outline-variant/10">
         <div class="flex justify-between items-center px-4 md:px-margin-desktop py-3 md:py-4 max-w-container-max mx-auto">
-            <a class="font-headline-lg text-headline-lg-mobile md:text-headline-md text-primary tracking-tight leading-tight" href="/">
-                Margarita Flores
-                <span class="block text-[10px] font-label-sm text-on-surface-variant tracking-widest uppercase">Asesora Inmobiliaria</span>
+            <a href="/">
+                <div style="height:58px;overflow:hidden;display:flex;align-items:center;">
+                    <img src="/images/logo.png" alt="Margarita Flores" style="height:100px;width:auto;">
+                </div>
             </a>
             {{-- Desktop nav --}}
             <div class="hidden md:flex gap-8 items-center">
