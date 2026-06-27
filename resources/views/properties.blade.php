@@ -135,7 +135,6 @@
                 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" href="/">Inicio</a>
                 <a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 transition-all" href="/properties">Propiedades</a>
                 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" href="/#contacto">Contacto</a>
-                <a href="/#contacto" class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-md hover:opacity-90 transition-all">Consulta Gratis</a>
             </div>
             <!-- Mobile Menu Toggle -->
             <button id="menu-btn" class="md:hidden p-2 text-primary rounded-lg hover:bg-surface-container transition-all" aria-label="Abrir menú">
@@ -154,11 +153,6 @@
             <a href="/#contacto" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all font-medium">
                 <span class="material-symbols-outlined text-[20px]">mail</span> Contacto
             </a>
-            <div class="pt-2">
-                <a href="/#contacto" class="flex items-center justify-center gap-2 w-full bg-primary text-on-primary px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-all">
-                    <span class="material-symbols-outlined text-[20px]">calendar_month</span> Consulta Gratis
-                </a>
-            </div>
         </div>
     </nav>
 
@@ -177,18 +171,18 @@
 
         <!-- Search & Filter Bar -->
         <section class="px-4 md:px-margin-desktop max-w-[1440px] mx-auto mb-6 md:mb-lg">
+            <form method="GET" action="/properties">
             <div class="bg-surface-container-lowest p-4 md:p-gutter rounded-xl shadow-sm border border-surface-container-high">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-md items-end">
                     <div class="space-y-xs">
                         <label class="font-label-md text-label-md text-on-surface-variant text-xs md:text-sm">Ubicación</label>
                         <div class="relative">
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">location_on</span>
-                            <select class="w-full bg-background border border-outline-variant rounded-lg pl-9 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all">
-                                <option>Todas las zonas</option>
-                                <option>Marina Mazatlán</option>
-                                <option>Centro Histórico</option>
-                                <option>Zona Cerritos</option>
-                                <option>El Cid</option>
+                            <select name="city" class="w-full bg-background border border-outline-variant rounded-lg pl-9 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all">
+                                <option value="">Todas las ciudades</option>
+                                @foreach($cities as $city)
+                                    <option value="{{ $city }}" @selected(request('city') === $city)>{{ $city }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -196,35 +190,41 @@
                         <label class="font-label-md text-label-md text-on-surface-variant text-xs md:text-sm">Tipo de Propiedad</label>
                         <div class="relative">
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">home_work</span>
-                            <select class="w-full bg-background border border-outline-variant rounded-lg pl-9 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all">
-                                <option>Cualquiera</option>
-                                <option>Casa</option>
-                                <option>Departamento</option>
-                                <option>Terreno</option>
+                            <select name="type" class="w-full bg-background border border-outline-variant rounded-lg pl-9 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all">
+                                <option value="">Cualquiera</option>
+                                <option value="casa" @selected(request('type') === 'casa')>Casa</option>
+                                <option value="departamento" @selected(request('type') === 'departamento')>Departamento</option>
+                                <option value="terreno" @selected(request('type') === 'terreno')>Terreno</option>
                             </select>
                         </div>
                     </div>
                     <div class="space-y-xs">
-                        <label class="font-label-md text-label-md text-on-surface-variant text-xs md:text-sm">Rango de Precio (MXN)</label>
+                        <label class="font-label-md text-label-md text-on-surface-variant text-xs md:text-sm">Tipo de Operación</label>
                         <div class="relative">
-                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">payments</span>
-                            <select class="w-full bg-background border border-outline-variant rounded-lg pl-9 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all">
-                                <option>Sin límite</option>
-                                <option>Hasta $1,000,000 MXN</option>
-                                <option>$1,000,000 - $3,000,000 MXN</option>
-                                <option>$3,000,000 - $6,000,000 MXN</option>
-                                <option>Más de $6,000,000 MXN</option>
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">swap_horiz</span>
+                            <select name="operation_type" class="w-full bg-background border border-outline-variant rounded-lg pl-9 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all">
+                                <option value="">Todas</option>
+                                <option value="venta" @selected(request('operation_type') === 'venta')>Venta</option>
+                                <option value="preventa" @selected(request('operation_type') === 'preventa')>Preventa</option>
+                                <option value="renta_anual" @selected(request('operation_type') === 'renta_anual')>Renta Anual</option>
+                                <option value="renta_vacacional" @selected(request('operation_type') === 'renta_vacacional')>Renta Vacacional</option>
                             </select>
                         </div>
                     </div>
-                    <div class="sm:col-span-2 md:col-span-1">
-                        <button class="w-full bg-primary text-on-primary font-label-md py-3 rounded-lg flex items-center justify-center gap-xs hover:opacity-90 transition-all shadow-md shadow-primary/20">
+                    <div class="sm:col-span-2 md:col-span-1 flex gap-2">
+                        <button type="submit" class="flex-1 bg-primary text-on-primary font-label-md py-3 rounded-lg flex items-center justify-center gap-xs hover:opacity-90 transition-all shadow-md shadow-primary/20">
                             <span class="material-symbols-outlined text-[18px]">search</span>
-                            Buscar Propiedades
+                            Buscar
                         </button>
+                        @if(request()->hasAny(['type', 'operation_type', 'city']))
+                        <a href="/properties" class="bg-surface-container text-on-surface-variant px-4 py-3 rounded-lg flex items-center justify-center hover:bg-surface-container-high transition-all" title="Limpiar filtros">
+                            <span class="material-symbols-outlined text-[18px]">close</span>
+                        </a>
+                        @endif
                     </div>
                 </div>
             </div>
+            </form>
         </section>
 
         <!-- Property Grid -->
@@ -361,7 +361,7 @@
         </section>
 
         <!-- Newsletter / CTA -->
-        <section class="px-4 md:px-margin-desktop max-w-[1440px] mx-auto mt-10 md:mt-xl mb-6 md:mb-lg">
+        <!-- <section class="px-4 md:px-margin-desktop max-w-[1440px] mx-auto mt-10 md:mt-xl mb-6 md:mb-lg">
             <div class="relative rounded-2xl md:rounded-3xl overflow-hidden py-10 md:py-xl px-6 md:px-gutter bg-primary">
                 <div class="absolute inset-0 opacity-10">
                     <img class="w-full h-full object-cover" alt="Beach background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGn_8hNJeXvFUHPO0JLtIvMVtcqgIByk9MqQVdsS8K3Wa25bwJ8qdn59-fbvLkjqCfcrU0spAQFCxaI3x8YH8z1w1ZoLJ8WaR9tIhPaJ3TOr2PKAXifu97PkayDWUW60Bfubv3m3U_ZnVOLprEO3yBaZlRAdI_12RiDHdSBEVSiVTq38_-HEt8Dz9Ke9yrrfGeofFCErd0np7O_bBJv-HVPKqVDaaazxRFKaHP-BSMQwA1QWuB1GQN8ncXzL5l099O2FCrwUCZQIE">
@@ -375,7 +375,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
     </main>
 
     <!-- Footer -->

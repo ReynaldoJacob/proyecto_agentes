@@ -23,12 +23,19 @@ class PropertiesController extends Controller
         }
 
         if ($city = $request->input('city')) {
-            $query->where('city', 'like', "%{$city}%");
+            $query->where('city', $city);
         }
 
         $properties = $query->paginate(12)->withQueryString();
 
-        return view('properties', compact('properties'));
+        $cities = Property::where('is_active', true)
+            ->whereNotNull('city')
+            ->where('city', '!=', '')
+            ->distinct()
+            ->orderBy('city')
+            ->pluck('city');
+
+        return view('properties', compact('properties', 'cities'));
     }
 
     public function show(Property $property)

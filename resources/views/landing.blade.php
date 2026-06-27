@@ -127,7 +127,6 @@
                 <a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 transition-all" href="/">Inicio</a>
                 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" href="/properties">Propiedades</a>
                 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" href="#contacto">Contacto</a>
-                <a href="#contacto" class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-md hover:opacity-90 transition-all">Consulta Gratis</a>
             </div>
             {{-- Hamburger --}}
             <button id="menu-btn" class="md:hidden text-primary p-2 rounded-lg hover:bg-surface-container transition-all" aria-label="Abrir menú">
@@ -147,11 +146,6 @@
             <a href="#contacto" id="contacto-link" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all font-medium">
                 <span class="material-symbols-outlined text-[20px]">mail</span> Contacto
             </a>
-            <div class="pt-2">
-                <a href="#contacto" id="consulta-link" class="flex items-center justify-center gap-2 w-full bg-primary text-on-primary px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-all">
-                    <span class="material-symbols-outlined text-[20px]">calendar_month</span> Consulta Gratis
-                </a>
-            </div>
         </div>
     </nav>
 
