@@ -156,12 +156,14 @@
     </nav>
 
     <header class="relative min-h-[100svh] md:min-h-[90vh] flex items-end md:items-center pt-16 pb-12 md:pb-0">
-        <div class="absolute inset-0 z-0">
-            <img alt="Luxury Home Interior" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ_kFUXxVPjfwfVGxLrK5gf-gcdDdqOoYO7e3A_ScgBr2N-hPa-XVivEdDeh-iHeUWXvEDSt-q2PheOloVc44bhlUw0WkT6V9uehzQ_d1x3j8cdwWgC69JXUaI8tbHmVWxLHniV-UMhJ1k4m4h-kuV5YQIXzRutucrFTicT3y1y1zowqHSICW1zhPpbaIdo8_cbJ-DZig-SZLHnP47IjygYwgKq8d93uLRhXmOUDTaMHQQjW-LYmMVY9-se_gy4V2_8ksevVmcMh8">
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <video autoplay loop muted playsinline
+                   style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;"
+                   src="/videos/promo.mp4"></video>
             {{-- Mobile: gradiente de abajo hacia arriba --}}
-            <div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/20 md:hidden"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent md:hidden"></div>
             {{-- Desktop: gradiente de izquierda a derecha --}}
-            <div class="absolute inset-0 hidden md:block bg-gradient-to-r from-background/95 via-background/60 to-transparent"></div>
+            <div class="absolute inset-0 hidden md:block bg-gradient-to-r from-background/90 via-background/40 to-transparent"></div>
         </div>
         <div class="relative z-10 max-w-container-max mx-auto px-4 md:px-margin-desktop w-full">
             <div class="max-w-2xl text-center md:text-left">
@@ -397,7 +399,7 @@
 
             updateControls();
             requestAnimationFrame(tick);
-            
+
         })();
         </script>
         @endif
@@ -564,82 +566,60 @@
         </div>
     </section>
 
-    <footer class="bg-surface-container-low dark:bg-surface-container-lowest w-full border-t border-outline-variant/30">
-        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-xl">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-10">
-
-                {{-- Marca --}}
-                <div>
-                    <a class="font-headline-md text-headline-md font-bold text-primary block mb-2 tracking-tight" href="#">Margarita Flores</a>
-                    <p class="font-label-sm text-on-surface-variant mb-5">Asesora Inmobiliaria · Mazatlán, Sinaloa</p>
-
-                    {{-- Redes sociales --}}
-                    <div class="flex items-center gap-3 flex-wrap">
-
-                        {{-- TikTok --}}
-                        <a href="#" target="_blank" aria-label="TikTok"
-                           class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-black hover:text-white text-on-surface-variant transition-all">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"/>
-                            </svg>
+    <footer class="bg-surface-container text-on-surface-variant py-10 md:py-lg px-4 md:px-margin-desktop">
+        <div class="max-w-[1440px] mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-xl mb-8 md:mb-xl">
+                <div class="space-y-4 md:space-y-md">
+                    <span class="font-headline-md text-headline-md font-bold text-on-surface block">Margarita Flores</span>
+                    <p class="text-label-md font-medium text-tertiary max-w-xs">Tu aliada estratégica en el mercado inmobiliario de Mazatlán.</p>
+                    <div class="flex gap-3 flex-wrap">
+                        <a href="#" target="_blank" aria-label="TikTok" class="w-9 h-9 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-black hover:text-white text-on-surface-variant transition-all">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"/></svg>
                         </a>
-
-                        {{-- Instagram --}}
-                        <a href="https://www.instagram.com/maflga?igsh=dWxpdGdsaTdybHNn" target="_blank" aria-label="Instagram"
-                           class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-500 hover:to-orange-400 hover:text-white text-on-surface-variant transition-all">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-                            </svg>
+                        <a href="https://www.instagram.com/maflga?igsh=dWxpdGdsaTdybHNn" target="_blank" aria-label="Instagram" class="w-9 h-9 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-pink-500 hover:text-white text-on-surface-variant transition-all">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                         </a>
-
-                        {{-- Threads --}}
-                        <a href="#" target="_blank" aria-label="Threads"
-                           class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-black hover:text-white text-on-surface-variant transition-all">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 013.02.142c-.126-.988-.43-1.7-.9-2.121-.595-.533-1.5-.808-2.7-.822h-.036c-.783 0-1.878.169-2.753 1.004l-1.433-1.453C10.4 4.2 11.773 3.73 13.29 3.73h.064c1.695.022 3.057.502 4.049 1.427 1.136 1.057 1.68 2.6 1.61 4.38.63.387 1.144.84 1.542 1.355 1.36 1.83 1.363 4.407-.01 6.462C19.116 23.098 16.81 24 12.186 24zm-1.68-8.413c.086 1.558 1.165 1.752 1.78 1.718.957-.052 1.743-.457 2.237-1.14.42-.58.66-1.39.713-2.417a10.958 10.958 0 00-2.535-.138c-.967.056-1.718.333-2.17.8-.345.358-.51.803-.479 1.294l-.001-.117.455-.002z"/>
-                            </svg>
+                        <a href="#" target="_blank" aria-label="Threads" class="w-9 h-9 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-black hover:text-white text-on-surface-variant transition-all">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 013.02.142c-.126-.988-.43-1.7-.9-2.121-.595-.533-1.5-.808-2.7-.822h-.036c-.783 0-1.878.169-2.753 1.004l-1.433-1.453C10.4 4.2 11.773 3.73 13.29 3.73h.064c1.695.022 3.057.502 4.049 1.427 1.136 1.057 1.68 2.6 1.61 4.38.63.387 1.144.84 1.542 1.355 1.36 1.83 1.363 4.407-.01 6.462C19.116 23.098 16.81 24 12.186 24zm-1.68-8.413c.086 1.558 1.165 1.752 1.78 1.718.957-.052 1.743-.457 2.237-1.14.42-.58.66-1.39.713-2.417a10.958 10.958 0 00-2.535-.138c-.967.056-1.718.333-2.17.8-.345.358-.51.803-.479 1.294l-.001-.117.455-.002z"/></svg>
                         </a>
-
-                        {{-- Facebook --}}
-                        <a href="https://www.facebook.com/share/18nw7CR8cV/?mibextid=wwXIfr" target="_blank" aria-label="Facebook"
-                           class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-[#1877F2] hover:text-white text-on-surface-variant transition-all">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
+                        <a href="https://www.facebook.com/share/18nw7CR8cV/?mibextid=wwXIfr" target="_blank" aria-label="Facebook" class="w-9 h-9 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-[#1877F2] hover:text-white text-on-surface-variant transition-all">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                         </a>
-
-                        {{-- LinkedIn --}}
-                        <a href="#" target="_blank" aria-label="LinkedIn"
-                           class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-[#0A66C2] hover:text-white text-on-surface-variant transition-all">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                            </svg>
+                        <a href="#" target="_blank" aria-label="LinkedIn" class="w-9 h-9 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-[#0A66C2] hover:text-white text-on-surface-variant transition-all">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                         </a>
-
                     </div>
                 </div>
-
-                {{-- Links --}}
-                <div class="flex flex-wrap gap-x-12 gap-y-4">
-                    <div class="space-y-2">
-                        <p class="font-label-md text-on-surface text-xs uppercase tracking-widest mb-3">Navegación</p>
-                        <a class="block font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/">Inicio</a>
-                        <a class="block font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/properties">Propiedades</a>
-                        <a class="block font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#contacto">Contacto</a>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-xl w-full md:w-auto">
+                    <div class="space-y-3 md:space-y-md">
+                        <h4 class="font-label-md text-on-surface font-bold text-sm">Navegación</h4>
+                        <ul class="space-y-2 md:space-y-sm text-sm">
+                            <li><a class="hover:text-primary transition-all" href="/">Inicio</a></li>
+                            <li><a class="hover:text-primary transition-all" href="/properties">Propiedades</a></li>
+                            <li><a class="hover:text-primary transition-all" href="#contacto">Asesoría</a></li>
+                        </ul>
                     </div>
-                    <div class="space-y-2">
-                        <p class="font-label-md text-on-surface text-xs uppercase tracking-widest mb-3">Servicios</p>
-                        <a class="block font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/properties?operation_type=venta">Venta</a>
-                        <a class="block font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/properties?operation_type=preventa">Preventa</a>
-                        <a class="block font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/properties?operation_type=renta_anual">Renta Anual</a>
-                        <a class="block font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/properties?operation_type=renta_vacacional">Renta Vacacional</a>
+                    <div class="space-y-3 md:space-y-md">
+                        <h4 class="font-label-md text-on-surface font-bold text-sm">Servicios</h4>
+                        <ul class="space-y-2 md:space-y-sm text-sm">
+                            <li><a class="hover:text-primary transition-all" href="/properties?operation_type=venta">Venta</a></li>
+                            <li><a class="hover:text-primary transition-all" href="/properties?operation_type=preventa">Preventa</a></li>
+                            <li><a class="hover:text-primary transition-all" href="/properties?operation_type=renta_anual">Renta Anual</a></li>
+                            <li><a class="hover:text-primary transition-all" href="/properties?operation_type=renta_vacacional">Renta Vacacional</a></li>
+                        </ul>
+                    </div>
+                    <div class="space-y-3 md:space-y-md col-span-2 md:col-span-1">
+                        <h4 class="font-label-md text-on-surface font-bold text-sm">Contacto</h4>
+                        <ul class="space-y-2 md:space-y-sm text-sm">
+                                                 <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">mail</span> maggyflog85@gmail.com</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">call</span> +52 669 110 5734</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-
-            <div class="mt-10 pt-6 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-3">
-                <p class="font-label-sm text-label-sm text-on-surface-variant">© {{ date('Y') }} Margarita Flores · Asesora Inmobiliaria. Todos los derechos reservados.</p>
-                <p class="font-label-sm text-label-sm text-on-surface-variant">Mazatlán, Sinaloa, México</p>
+            <div class="pt-6 border-t border-surface-container-high flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-on-surface-variant">
+                <span>© {{ date('Y') }} Margarita Flores · Asesora Inmobiliaria. Todos los derechos reservados.</span>
+                <span>Mazatlán, Sinaloa, México</span>
             </div>
         </div>
     </footer>
@@ -666,14 +646,7 @@
             });
         });
 
-        // Parallax solo en desktop
-        window.addEventListener('scroll', () => {
-            if (window.innerWidth >= 768) {
-                const scroll = window.pageYOffset;
-                const heroImg = document.querySelector('header img');
-                if (heroImg) heroImg.style.transform = `translateY(${scroll * 0.2}px)`;
-            }
-        });
+        // Parallax desactivado (fondo es video)
 
         // Animación de entrada para tarjetas — sin movimiento en mobile
         const isMobile = window.innerWidth < 768;

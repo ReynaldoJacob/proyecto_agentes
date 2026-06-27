@@ -424,8 +424,8 @@
                     <div class="space-y-3 md:space-y-md col-span-2 md:col-span-1">
                         <h4 class="font-label-md text-on-surface font-bold text-sm">Contacto</h4>
                         <ul class="space-y-2 md:space-y-sm text-sm">
-                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">mail</span> info@margaritaflores.com</li>
-                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">call</span> +52 (669) 123 4567</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">mail</span> maggyflog85@gmail.com</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">call</span> +52 669 110 5734</li>
                         </ul>
                     </div>
                 </div>
