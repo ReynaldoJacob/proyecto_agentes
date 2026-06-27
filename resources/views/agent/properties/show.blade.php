@@ -1,202 +1,246 @@
 <!DOCTYPE html>
-<html lang="es">
+<html class="light" lang="es">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>{{ $property->title }} | Margarita Flores</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary:              '#004370',
+                        'primary-container':  '#005b96',
+                        'on-primary':         '#ffffff',
+                        secondary:            '#25676f',
+                        surface:              '#f9f9ff',
+                        'surface-container':  '#e8eeff',
+                        'surface-container-low': '#f1f3ff',
+                        'surface-container-high':'#e3e8f9',
+                        'on-surface':         '#161c27',
+                        'on-surface-variant': '#414750',
+                        'outline-variant':    '#c1c7d1',
+                        outline:              '#717781',
+                    },
+                    fontFamily: {
+                        heading: ['Cinzel', 'serif'],
+                        body:    ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        };
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block; line-height: 1;
+        }
+        .thumb { cursor: pointer; transition: opacity 0.2s, outline 0.2s; }
+        .thumb:hover { opacity: 0.85; }
+        .thumb.active { outline: 2px solid #004370; outline-offset: 2px; }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-surface min-h-screen">
 
-<nav class="fixed top-0 w-full z-50 bg-white shadow-sm border-b border-gray-200">
-    <div class="px-6 py-4 max-w-5xl mx-auto flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <a href="{{ route('agent.properties.index') }}" class="text-gray-500 hover:text-gray-800 text-sm">← Mis Propiedades</a>
-            <h1 class="text-lg font-bold text-gray-800 truncate max-w-xs">{{ $property->title }}</h1>
+@php
+    $badge = [
+        'disponible' => ['bg-emerald-50 text-emerald-700 border-emerald-200', 'check_circle'],
+        'vendido'    => ['bg-violet-50 text-violet-700 border-violet-200',    'sell'],
+        'rentado'    => ['bg-blue-50 text-blue-700 border-blue-200',          'key'],
+        'reservado'  => ['bg-amber-50 text-amber-700 border-amber-200',       'bookmark'],
+    ][$property->status] ?? ['bg-surface-container text-on-surface-variant border-outline-variant', 'radio_button_unchecked'];
+@endphp
+
+{{-- Navbar --}}
+<nav class="fixed top-0 w-full z-50 bg-white border-b border-outline-variant shadow-sm">
+    <div class="max-w-5xl mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <a href="{{ route('agent.properties.index') }}"
+               class="flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-primary transition font-medium">
+                <span class="material-symbols-outlined text-base">arrow_back</span>
+                <span class="hidden sm:inline">Mis Propiedades</span>
+            </a>
+            <span class="text-outline-variant hidden sm:inline">|</span>
+            <p class="hidden sm:block text-sm font-medium text-on-surface truncate max-w-xs">{{ $property->title }}</p>
         </div>
         <div class="flex items-center gap-2">
             <a href="{{ route('agent.properties.edit', $property) }}"
-               class="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700">
+               class="inline-flex items-center gap-1.5 bg-primary text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-primary-container transition">
+                <span class="material-symbols-outlined text-base">edit</span>
                 Editar
             </a>
             <form method="POST" action="{{ route('agent.properties.destroy', $property) }}"
                   onsubmit="return confirm('¿Eliminar esta propiedad permanentemente?')">
                 @csrf
                 @method('DELETE')
-                <button class="px-4 py-2 border border-red-200 text-red-500 text-sm rounded-lg hover:bg-red-50">Eliminar</button>
+                <button class="inline-flex items-center gap-1.5 px-4 py-2 border border-red-200 text-red-500 text-sm rounded-xl hover:bg-red-50 transition font-medium">
+                    <span class="material-symbols-outlined text-base">delete</span>
+                    <span class="hidden sm:inline">Eliminar</span>
+                </button>
             </form>
         </div>
     </div>
 </nav>
 
-<main class="pt-24 px-4 pb-16 max-w-5xl mx-auto">
+<main class="pt-20 max-w-5xl mx-auto px-4 py-8">
 
     @if(session('success'))
-        <div class="mb-4 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg text-sm">
+        <div class="mb-6 flex items-center gap-3 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-2xl px-5 py-3 text-sm font-medium">
+            <span class="material-symbols-outlined text-base">check_circle</span>
             {{ session('success') }}
         </div>
     @endif
 
-    @php
-        $statusColors = [
-            'disponible' => 'bg-green-100 text-green-800',
-            'vendido'    => 'bg-red-100 text-red-800',
-            'rentado'    => 'bg-blue-100 text-blue-800',
-            'reservado'  => 'bg-yellow-100 text-yellow-800',
-        ];
-    @endphp
-
-    {{-- Imagen principal --}}
+    {{-- Galería --}}
     @if($property->cover_image)
-        <div class="rounded-xl overflow-hidden mb-6 h-72">
-            <img src="{{ Storage::url($property->cover_image) }}" alt="{{ $property->title }}"
-                 class="w-full h-full object-cover">
+        <div class="mb-4 rounded-2xl overflow-hidden h-72 md:h-96 bg-surface-container">
+            <img id="main-img" src="{{ Storage::url($property->cover_image) }}"
+                 alt="{{ $property->title }}" class="w-full h-full object-cover">
         </div>
-    @endif
-
-    {{-- Galería adicional --}}
-    @if($property->images && count($property->images))
-        <div class="flex gap-3 mb-6 overflow-x-auto pb-2">
-            @foreach($property->images as $img)
-                <img src="{{ Storage::url($img) }}" alt=""
-                     class="h-24 w-36 flex-shrink-0 rounded-lg object-cover cursor-pointer hover:opacity-90">
-            @endforeach
-        </div>
+        @if($property->images && count($property->images))
+            <div class="flex gap-2 mb-8 overflow-x-auto pb-1">
+                <img src="{{ Storage::url($property->cover_image) }}"
+                     class="thumb active h-16 w-24 flex-shrink-0 rounded-xl object-cover"
+                     onclick="setMain(this, '{{ Storage::url($property->cover_image) }}')">
+                @foreach($property->images as $img)
+                    <img src="{{ Storage::url($img) }}"
+                         class="thumb h-16 w-24 flex-shrink-0 rounded-xl object-cover"
+                         onclick="setMain(this, '{{ Storage::url($img) }}')">
+                @endforeach
+            </div>
+        @else
+            <div class="mb-8"></div>
+        @endif
     @endif
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        {{-- Info principal --}}
-        <div class="lg:col-span-2 space-y-6">
+        {{-- Columna principal --}}
+        <div class="lg:col-span-2 space-y-5">
 
-            {{-- Header info --}}
-            <div class="bg-white rounded-xl shadow-sm p-6">
-                <div class="flex flex-wrap gap-2 mb-3">
-                    <span class="text-xs font-semibold px-3 py-1 rounded-full {{ $statusColors[$property->status] ?? 'bg-gray-100 text-gray-600' }}">
+            {{-- Header --}}
+            <div class="bg-white rounded-2xl border border-outline-variant/50 shadow-sm p-6">
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full border {{ $badge[0] }}">
+                        <span class="material-symbols-outlined" style="font-size:13px">{{ $badge[1] }}</span>
                         {{ $property->getStatusLabel() }}
                     </span>
-                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-blue-100 text-blue-800">
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
                         {{ $property->getTypeLabel() }}
                     </span>
-                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-purple-100 text-purple-800">
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20">
                         {{ $property->getOperationLabel() }}
                     </span>
                     @if($property->is_featured)
-                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-yellow-100 text-yellow-800">⭐ Destacada</span>
+                        <span class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                            <span class="material-symbols-outlined" style="font-size:13px">star</span>
+                            Destacada
+                        </span>
                     @endif
                     @if(!$property->is_active)
-                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-gray-200 text-gray-600">Inactiva</span>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant border border-outline-variant">Inactiva</span>
                     @endif
                 </div>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-1">{{ $property->title }}</h2>
-                <div class="flex items-center gap-3 mb-3">
-                    <p class="text-gray-500 text-sm">
-                        📍 {{ $property->address ? $property->address.', ' : '' }}{{ $property->city }}, {{ $property->state }}
-                    </p>
-                    @if($property->maps_url)
-                    <a href="{{ $property->maps_url }}" target="_blank" rel="noopener"
-                       class="inline-flex items-center gap-1 text-xs font-semibold text-white bg-green-500 hover:bg-green-600 px-3 py-1 rounded-full transition flex-shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        Ver en Google Maps
-                    </a>
-                    @endif
-                </div>
+                <h2 class="font-heading text-xl md:text-2xl font-semibold text-on-surface mb-2">{{ $property->title }}</h2>
 
-                <p class="text-3xl font-bold text-blue-700">
+                @if($property->city || $property->address)
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-outline text-base">location_on</span>
+                        <p class="text-sm text-on-surface-variant">
+                            {{ $property->address ? $property->address.', ' : '' }}{{ $property->city }}{{ $property->state ? ', '.$property->state : '' }}
+                        </p>
+                        @if($property->maps_url)
+                            <a href="{{ $property->maps_url }}" target="_blank" rel="noopener"
+                               class="inline-flex items-center gap-1 text-xs font-semibold text-white bg-emerald-500 hover:bg-emerald-600 px-2.5 py-1 rounded-full transition flex-shrink-0">
+                                <span class="material-symbols-outlined" style="font-size:13px">open_in_new</span>
+                                Maps
+                            </a>
+                        @endif
+                    </div>
+                @endif
+
+                <p class="font-heading font-bold text-2xl text-primary">
                     {{ $property->currency }} {{ number_format($property->price, 0, '.', ',') }}
                     @if($property->isRental())
-                        <span class="text-base font-normal text-gray-500">/ {{ $property->operation_type === 'renta_vacacional' ? 'noche' : 'mes' }}</span>
+                        <span class="text-sm font-body font-normal text-on-surface-variant">/ {{ $property->operation_type === 'renta_vacacional' ? 'noche' : 'mes' }}</span>
                     @endif
                 </p>
             </div>
 
             {{-- Características --}}
-            <div class="bg-white rounded-xl shadow-sm p-6">
-                <h3 class="font-semibold text-gray-800 mb-4">Características</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    @if($property->bedrooms !== null)
-                        <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <p class="text-2xl mb-1">🛏</p>
-                            <p class="text-xl font-bold text-gray-800">{{ $property->bedrooms }}</p>
-                            <p class="text-xs text-gray-500">Recámaras</p>
-                        </div>
-                    @endif
-                    @if($property->bathrooms !== null)
-                        <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <p class="text-2xl mb-1">🚿</p>
-                            <p class="text-xl font-bold text-gray-800">{{ $property->bathrooms }}</p>
-                            <p class="text-xs text-gray-500">Baños</p>
-                        </div>
-                    @endif
-                    @if($property->parking_spaces !== null)
-                        <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <p class="text-2xl mb-1">🚗</p>
-                            <p class="text-xl font-bold text-gray-800">{{ $property->parking_spaces }}</p>
-                            <p class="text-xs text-gray-500">Estac.</p>
-                        </div>
-                    @endif
-                    @if($property->area)
-                        <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.4" class="mx-auto mb-1 text-gray-400">
-                                <rect x="3" y="3" width="14" height="14" rx="0.5"/>
-                                <line x1="3" y1="20.5" x2="17" y2="20.5"/><polyline points="5,19 3,20.5 5,22"/><polyline points="15,19 17,20.5 15,22"/>
-                                <line x1="20.5" y1="3" x2="20.5" y2="17"/><polyline points="19,5 20.5,3 22,5"/><polyline points="19,15 20.5,17 22,15"/>
-                                <text x="5.5" y="13.5" font-size="6.5" font-family="serif" font-weight="bold" stroke="none" fill="currentColor">m²</text>
-                            </svg>
-                            <p class="text-xl font-bold text-gray-800">{{ $property->area }}</p>
-                            <p class="text-xs text-gray-500">m² Const.</p>
-                        </div>
-                    @endif
-                    @if($property->land_area)
-                        <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <p class="text-2xl mb-1">🏡</p>
-                            <p class="text-xl font-bold text-gray-800">{{ $property->land_area }}</p>
-                            <p class="text-xs text-gray-500">m² Terreno</p>
-                        </div>
-                    @endif
-                    @if($property->year_built)
-                        <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <p class="text-2xl mb-1">🏗</p>
-                            <p class="text-xl font-bold text-gray-800">{{ $property->year_built }}</p>
-                            <p class="text-xs text-gray-500">Año</p>
-                        </div>
-                    @endif
+            @php
+                $chars = collect([
+                    $property->bedrooms !== null    ? ['bed',           $property->bedrooms,                   'Recámaras'] : null,
+                    $property->bathrooms !== null   ? ['shower',        $property->bathrooms,                  'Baños']     : null,
+                    $property->parking_spaces !== null ? ['directions_car', $property->parking_spaces,         'Estac.']    : null,
+                    $property->area                 ? ['square_foot',   number_format($property->area, 0).' m²', 'Const.']  : null,
+                    $property->land_area            ? ['landscape',     number_format($property->land_area, 0).' m²', 'Terreno'] : null,
+                    $property->year_built           ? ['calendar_today',$property->year_built,                 'Año construido'] : null,
+                ])->filter();
+            @endphp
+            @if($chars->isNotEmpty())
+                <div class="bg-white rounded-2xl border border-outline-variant/50 shadow-sm p-6">
+                    <h3 class="font-heading text-sm font-semibold text-on-surface mb-4">Características</h3>
+                    <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                        @foreach($chars as $char)
+                            <div class="flex flex-col items-center text-center p-3 bg-surface-container-low rounded-xl">
+                                <span class="material-symbols-outlined text-primary mb-1">{{ $char[0] }}</span>
+                                <p class="font-heading font-bold text-on-surface text-base">{{ $char[1] }}</p>
+                                <p class="text-xs text-on-surface-variant mt-0.5">{{ $char[2] }}</p>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @endif
 
             {{-- Descripción --}}
             @if($property->description)
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="font-semibold text-gray-800 mb-3">Descripción</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-line">{{ $property->description }}</p>
+                <div class="bg-white rounded-2xl border border-outline-variant/50 shadow-sm p-6">
+                    <h3 class="font-heading text-sm font-semibold text-on-surface mb-3">Descripción</h3>
+                    <p class="text-sm text-on-surface-variant leading-relaxed whitespace-pre-line">{{ $property->description }}</p>
                 </div>
             @endif
 
             {{-- Amenidades --}}
             @if($property->features && count($property->features))
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="font-semibold text-gray-800 mb-3">Amenidades</h3>
+                <div class="bg-white rounded-2xl border border-outline-variant/50 shadow-sm p-6">
+                    <h3 class="font-heading text-sm font-semibold text-on-surface mb-3">Amenidades</h3>
                     <div class="flex flex-wrap gap-2">
                         @foreach($property->features as $feat)
-                            <span class="text-sm bg-blue-50 text-blue-700 px-3 py-1 rounded-full">{{ $feat }}</span>
+                            <span class="inline-flex items-center gap-1 text-xs bg-primary/10 text-primary px-3 py-1.5 rounded-full font-medium">
+                                <span class="material-symbols-outlined" style="font-size:13px">check</span>
+                                {{ $feat }}
+                            </span>
                         @endforeach
                     </div>
                 </div>
             @endif
 
             {{-- Preventa --}}
-            @if($property->isPresale())
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="font-semibold text-gray-800 mb-3">Detalles de Preventa</h3>
+            @if($property->isPresale() && ($property->delivery_date || $property->construction_progress !== null))
+                <div class="bg-white rounded-2xl border border-outline-variant/50 shadow-sm p-6">
+                    <h3 class="font-heading text-sm font-semibold text-on-surface mb-4">Detalles de Preventa</h3>
                     @if($property->delivery_date)
-                        <p class="text-sm text-gray-600 mb-2">📅 Entrega estimada: <strong>{{ $property->delivery_date->format('d/m/Y') }}</strong></p>
+                        <div class="flex items-center gap-2 text-sm text-on-surface-variant mb-4">
+                            <span class="material-symbols-outlined text-primary text-base">event</span>
+                            Entrega estimada: <strong class="text-on-surface">{{ $property->delivery_date->format('d/m/Y') }}</strong>
+                        </div>
                     @endif
                     @if($property->construction_progress !== null)
                         <div>
-                            <p class="text-sm text-gray-600 mb-1">Avance de construcción: {{ $property->construction_progress }}%</p>
-                            <div class="bg-gray-100 rounded-full h-2">
-                                <div class="bg-blue-600 h-2 rounded-full" style="width: {{ $property->construction_progress }}%"></div>
+                            <div class="flex justify-between text-sm mb-1.5">
+                                <span class="text-on-surface-variant">Avance de construcción</span>
+                                <span class="font-semibold text-primary">{{ $property->construction_progress }}%</span>
+                            </div>
+                            @php $progress = (int) $property->construction_progress; @endphp
+                            <div class="bg-surface-container rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full transition-all" style="width:<?= $progress ?>%"></div>
                             </div>
                         </div>
                     @endif
@@ -205,36 +249,72 @@
 
             {{-- Renta vacacional --}}
             @if($property->operation_type === 'renta_vacacional' && ($property->min_nights || $property->max_nights))
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="font-semibold text-gray-800 mb-3">Condiciones de Renta</h3>
-                    @if($property->min_nights)
-                        <p class="text-sm text-gray-600">Mínimo de noches: <strong>{{ $property->min_nights }}</strong></p>
-                    @endif
-                    @if($property->max_nights)
-                        <p class="text-sm text-gray-600">Máximo de noches: <strong>{{ $property->max_nights }}</strong></p>
-                    @endif
+                <div class="bg-white rounded-2xl border border-outline-variant/50 shadow-sm p-6">
+                    <h3 class="font-heading text-sm font-semibold text-on-surface mb-3">Condiciones de Renta</h3>
+                    <div class="flex gap-6 text-sm text-on-surface-variant">
+                        @if($property->min_nights)
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-base">nights_stay</span>
+                                Mínimo: <strong class="text-on-surface">{{ $property->min_nights }} noches</strong>
+                            </div>
+                        @endif
+                        @if($property->max_nights)
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-base">date_range</span>
+                                Máximo: <strong class="text-on-surface">{{ $property->max_nights }} noches</strong>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             @endif
+
         </div>
 
         {{-- Sidebar --}}
         <div class="space-y-4">
-            {{-- Notas internas --}}
+
             @if($property->notes)
-                <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
-                    <h3 class="font-semibold text-yellow-800 text-sm mb-2">📝 Notas Internas</h3>
-                    <p class="text-yellow-700 text-sm whitespace-pre-line">{{ $property->notes }}</p>
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-amber-600 text-base">sticky_note_2</span>
+                        <h3 class="font-heading text-sm font-semibold text-amber-800">Notas Internas</h3>
+                    </div>
+                    <p class="text-sm text-amber-700 whitespace-pre-line leading-relaxed">{{ $property->notes }}</p>
                 </div>
             @endif
 
-            {{-- Meta --}}
-            <div class="bg-white rounded-xl shadow-sm p-4 text-sm text-gray-500 space-y-1">
-                <p>ID: #{{ $property->id }}</p>
-                <p>Publicada: {{ $property->created_at->format('d/m/Y H:i') }}</p>
-                <p>Actualizada: {{ $property->updated_at->format('d/m/Y H:i') }}</p>
+            <div class="bg-white rounded-2xl border border-outline-variant/50 shadow-sm p-4 space-y-2.5">
+                <h3 class="font-heading text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-3">Información</h3>
+                <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-outline" style="font-size:16px">tag</span>
+                    ID: <span class="font-medium text-on-surface">#{{ $property->id }}</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-outline" style="font-size:16px">schedule</span>
+                    Publicada: <span class="font-medium text-on-surface">{{ $property->created_at->format('d/m/Y') }}</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-outline" style="font-size:16px">update</span>
+                    Actualizada: <span class="font-medium text-on-surface">{{ $property->updated_at->format('d/m/Y') }}</span>
+                </div>
             </div>
+
+            <a href="{{ route('agent.properties.edit', $property) }}"
+               class="flex items-center justify-center gap-2 w-full bg-primary text-white py-3 rounded-2xl font-semibold text-sm hover:bg-primary-container transition shadow-sm shadow-primary/20">
+                <span class="material-symbols-outlined text-base">edit</span>
+                Editar propiedad
+            </a>
+
         </div>
     </div>
 </main>
+
+<script>
+function setMain(el, src) {
+    document.getElementById('main-img').src = src;
+    document.querySelectorAll('.thumb').forEach(function(t) { t.classList.remove('active'); });
+    el.classList.add('active');
+}
+</script>
 </body>
 </html>

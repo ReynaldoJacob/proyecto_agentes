@@ -382,12 +382,17 @@
                 paused = false;
             }, { passive: true });
 
-            // Ocultar controles si no hay suficientes propiedades para scroll
+            // Ocultar controles y clones si no hay suficientes propiedades para scroll
             function updateControls() {
                 var show = needsScroll();
                 document.getElementById('carousel-prev').style.display = show ? '' : 'none';
                 document.getElementById('carousel-next').style.display = show ? '' : 'none';
                 document.getElementById('carousel-dots').style.display = show ? '' : 'none';
+                // Ocultar tarjetas clonadas cuando no se necesita loop
+                Array.from(track.children).forEach(function(card, i) {
+                    card.style.display = (show || i < n) ? '' : 'none';
+                });
+                if (!show) { pos = 0; render(); }
             }
 
             window.addEventListener('resize', function() { render(); updateControls(); });
