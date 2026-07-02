@@ -596,7 +596,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-xl w-full md:w-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-xl w-full md:w-auto">
                     <div class="space-y-3 md:space-y-md">
                         <h4 class="font-label-md text-on-surface font-bold text-sm">Navegación</h4>
                         <ul class="space-y-2 md:space-y-sm text-sm">
@@ -614,12 +614,18 @@
                             <li><a class="hover:text-primary transition-all" href="/properties?operation_type=renta_vacacional">Renta Vacacional</a></li>
                         </ul>
                     </div>
-                    <div class="space-y-3 md:space-y-md col-span-2 md:col-span-1">
+                    <div class="space-y-3 md:space-y-md">
                         <h4 class="font-label-md text-on-surface font-bold text-sm">Contacto</h4>
                         <ul class="space-y-2 md:space-y-sm text-sm">
                                                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">mail</span> maggyflog85@gmail.com</li>
                             <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">call</span> +52 669 110 5734</li>
                         </ul>
+                    </div>
+                    <div class="space-y-3 md:space-y-md col-span-2 md:col-span-1 flex flex-col items-center md:items-start">
+                        <h4 class="font-label-md text-on-surface font-bold text-sm">Licencia</h4>
+                        <a href="https://agentesinmobiliarios.sinaloa.gob.mx/agn/check/val.php?id=75f9e8be63f311f093a2d843aeedb8ff" target="_blank" rel="noopener" class="inline-flex items-center gap-2 group">
+                            <img src="https://quickchart.io/qr?text={{ urlencode('https://agentesinmobiliarios.sinaloa.gob.mx/agn/check/val.php?id=75f9e8be63f311f093a2d843aeedb8ff') }}&dark=161c27&light=0000&margin=1&size=200" alt="Código QR de verificación de licencia de agente inmobiliario" width="80" height="80" class="shrink-0">
+                        </a>
                     </div>
                 </div>
             </div>
