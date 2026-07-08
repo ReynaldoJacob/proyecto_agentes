@@ -128,14 +128,34 @@ class PropertyController extends Controller
                 $existingImages = array_filter($existingImages, fn($img) => $img !== $path);
             }
         }
+        $existingImages = array_values($existingImages);
 
+        $newImagePaths = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $existingImages[] = $image->store('properties', 'public');
+                $newImagePaths[] = $image->store('properties', 'public');
             }
         }
 
-        $data['images'] = array_values($existingImages) ?: null;
+        if ($request->filled('image_order')) {
+            $ordered = [];
+            foreach ($request->input('image_order') as $token) {
+                if (Str::startsWith($token, 'existing:')) {
+                    $path = Str::after($token, 'existing:');
+                    if (in_array($path, $existingImages, true) && !in_array($path, $ordered, true)) {
+                        $ordered[] = $path;
+                    }
+                } elseif (Str::startsWith($token, 'new:')) {
+                    $idx = (int) Str::after($token, 'new:');
+                    if (isset($newImagePaths[$idx])) {
+                        $ordered[] = $newImagePaths[$idx];
+                    }
+                }
+            }
+            $data['images'] = $ordered ?: null;
+        } else {
+            $data['images'] = array_values(array_merge($existingImages, $newImagePaths)) ?: null;
+        }
 
         if (!empty($data['features'])) {
             $data['features'] = array_values(array_filter($data['features']));

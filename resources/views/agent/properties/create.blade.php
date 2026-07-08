@@ -314,7 +314,7 @@
             <input type="file" id="cover-input" name="cover_image" accept="image/*" style="display:none;">
 
             {{-- Galería --}}
-            <p style="font-size:11px;font-weight:700;color:#414750;text-transform:uppercase;letter-spacing:.06em;margin:20px 0 8px;">Galería de fotos <span style="font-weight:400;text-transform:none;color:#a0aab4;">(máx. 10)</span></p>
+            <p style="font-size:11px;font-weight:700;color:#414750;text-transform:uppercase;letter-spacing:.06em;margin:20px 0 8px;">Galería de fotos <span style="font-weight:400;text-transform:none;color:#a0aab4;">(máx. 10 · arrastra para ordenar)</span></p>
             <div id="gallery-drop" class="drop-zone" onclick="document.getElementById('gallery-trigger').click()">
                 <span class="material-symbols-outlined" style="font-size:40px;color:#c1c7d1;display:block;margin-bottom:8px;">collections</span>
                 <p id="gallery-label" style="font-size:14px;font-weight:600;color:#414750;margin:0 0 4px;">Arrastra fotos o haz clic para agregar</p>
@@ -453,45 +453,58 @@ coverDrop.addEventListener('drop',      function(e){ e.preventDefault(); this.cl
     var f = e.dataTransfer.files[0]; if(f && f.type.startsWith('image/')){ var dt=new DataTransfer(); dt.items.add(f); coverInput.files=dt.files; showCover(f); }
 });
 
-// ── Galería ──────────────────────────────────────────────
+// ── Galería (con reordenamiento por arrastre) ────────────
 var galleryDrop    = document.getElementById('gallery-drop');
 var galleryTrigger = document.getElementById('gallery-trigger');
 var galleryInput   = document.getElementById('gallery-input');
 var galleryGrid    = document.getElementById('gallery-grid');
-var gDT            = new DataTransfer();
+var galleryFiles   = [];
+var dragSrcIdx     = null;
 
 function renderGallery() {
     galleryGrid.innerHTML = '';
-    var files = Array.from(gDT.files).slice(0,10);
-    files.forEach(function(file, i) {
+    galleryFiles.slice(0,10).forEach(function(file, i) {
         var url  = URL.createObjectURL(file);
         var item = document.createElement('div');
-        item.style = 'position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:#e8eeff;';
-        item.innerHTML = '<img src="'+url+'" style="width:100%;height:100%;object-fit:cover;">'
+        item.draggable = true;
+        item.style = 'position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:#e8eeff;cursor:grab;';
+        item.innerHTML = '<img src="'+url+'" style="width:100%;height:100%;object-fit:cover;pointer-events:none;">'
+            +'<span style="position:absolute;top:4px;left:4px;min-width:20px;height:20px;padding:0 5px;background:rgba(0,67,112,.85);color:#fff;border-radius:99px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">'+(i+1)+'</span>'
+            +'<span class="material-symbols-outlined" style="position:absolute;bottom:4px;left:4px;font-size:16px;color:#fff;background:rgba(0,0,0,.45);border-radius:6px;padding:1px;">drag_indicator</span>'
             +'<button type="button" onclick="removeGallery('+i+')" style="position:absolute;top:4px;right:4px;width:22px;height:22px;background:rgba(0,0,0,.55);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;" onmouseover="this.style.background=\'#ef4444\'" onmouseout="this.style.background=\'rgba(0,0,0,.55)\'">'
             +'<span class="material-symbols-outlined" style="font-size:13px;color:#fff;">close</span></button>';
+        item.addEventListener('dragstart', function(e){ dragSrcIdx = i; e.dataTransfer.effectAllowed = 'move'; setTimeout(function(){ item.style.opacity = '.4'; }, 0); });
+        item.addEventListener('dragend',   function(){ item.style.opacity = '1'; dragSrcIdx = null; });
+        item.addEventListener('dragover',  function(e){ e.preventDefault(); });
+        item.addEventListener('drop',      function(e){
+            e.preventDefault();
+            if (dragSrcIdx === null || dragSrcIdx === i) return;
+            var moved = galleryFiles.splice(dragSrcIdx, 1)[0];
+            galleryFiles.splice(i, 0, moved);
+            renderGallery();
+        });
         galleryGrid.appendChild(item);
     });
     var sync = new DataTransfer();
-    files.forEach(function(f){ sync.items.add(f); });
+    galleryFiles.slice(0,10).forEach(function(f){ sync.items.add(f); });
     galleryInput.files = sync.files;
-    document.getElementById('gallery-label').textContent = files.length
-        ? files.length+'/10 fotos · arrastra o haz clic para agregar más'
+    document.getElementById('gallery-label').textContent = galleryFiles.length
+        ? galleryFiles.length+'/10 fotos · arrastra para ordenar o haz clic para agregar más'
         : 'Arrastra fotos o haz clic para agregar';
 }
 
 function addGalleryFiles(files) {
     Array.from(files).forEach(function(f){
-        if(!f.type.startsWith('image/') || gDT.files.length >= 10) return;
-        var dup=false; for(var i=0;i<gDT.files.length;i++){ if(gDT.files[i].name===f.name&&gDT.files[i].size===f.size){dup=true;break;} }
-        if(!dup) gDT.items.add(f);
+        if(!f.type.startsWith('image/') || galleryFiles.length >= 10) return;
+        var dup = galleryFiles.some(function(g){ return g.name === f.name && g.size === f.size; });
+        if(!dup) galleryFiles.push(f);
     });
     renderGallery();
 }
 
 function removeGallery(idx) {
-    var n=new DataTransfer(); Array.from(gDT.files).forEach(function(f,i){ if(i!==idx) n.items.add(f); });
-    gDT=n; renderGallery();
+    galleryFiles.splice(idx, 1);
+    renderGallery();
 }
 
 galleryTrigger.addEventListener('change', function(){ addGalleryFiles(this.files); this.value=''; });

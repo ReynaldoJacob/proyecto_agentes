@@ -39,6 +39,8 @@ class UpdatePropertyRequest extends FormRequest
             'images.*'               => ['nullable', 'image', 'max:5120'],
             'remove_images'          => ['nullable', 'array'],
             'remove_images.*'        => ['string'],
+            'image_order'            => ['nullable', 'array'],
+            'image_order.*'          => ['string'],
             'features'               => ['nullable', 'array'],
             'features.*'             => ['string', 'max:100'],
             'delivery_date'          => ['nullable', 'date'],

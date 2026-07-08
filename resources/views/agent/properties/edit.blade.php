@@ -318,33 +318,9 @@
             </div>
             <input type="file" id="cover-input" name="cover_image" accept="image/*" style="display:none;">
 
-            {{-- Galería existente --}}
-            @if($property->images && count($property->images))
+            {{-- Galería --}}
             <p style="font-size:11px;font-weight:700;color:#414750;text-transform:uppercase;letter-spacing:.06em;margin:20px 0 8px;">
-                Fotos actuales <span style="font-weight:400;text-transform:none;color:#a0aab4;">— marca para eliminar</span>
-            </p>
-            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
-                @foreach($property->images as $img)
-                <label style="position:relative;cursor:pointer;border-radius:10px;overflow:hidden;aspect-ratio:1;display:block;">
-                    <input type="checkbox" name="remove_images[]" value="{{ $img }}" class="sr-only" id="rm_{{ $loop->index }}">
-                    <img src="{{ Storage::url($img) }}"
-                         style="width:100%;height:100%;object-fit:cover;transition:opacity .15s;"
-                         id="ri_{{ $loop->index }}"
-                         data-idx="{{ $loop->index }}"
-                         class="rm-img"
-                         alt="">
-                    <div id="rx_{{ $loop->index }}"
-                         style="display:none;position:absolute;inset:0;background:rgba(239,68,68,.55);border-radius:10px;align-items:center;justify-content:center;">
-                        <span class="material-symbols-outlined" style="color:#fff;font-size:28px;">delete</span>
-                    </div>
-                </label>
-                @endforeach
-            </div>
-            @endif
-
-            {{-- Agregar nuevas fotos --}}
-            <p style="font-size:11px;font-weight:700;color:#414750;text-transform:uppercase;letter-spacing:.06em;margin:20px 0 8px;">
-                Agregar fotos <span style="font-weight:400;text-transform:none;color:#a0aab4;">(máx. 10 nuevas)</span>
+                Galería de fotos <span style="font-weight:400;text-transform:none;color:#a0aab4;">— arrastra para ordenar</span>
             </p>
             <div id="gallery-drop" class="drop-zone" onclick="document.getElementById('gallery-trigger').click()">
                 <span class="material-symbols-outlined" style="font-size:40px;color:#c1c7d1;display:block;margin-bottom:8px;">collections</span>
@@ -353,6 +329,8 @@
             </div>
             <input type="file" id="gallery-trigger" accept="image/*" multiple style="display:none;">
             <input type="file" id="gallery-input" name="images[]" accept="image/*" multiple style="display:none;">
+            <div id="remove-images-container"></div>
+            <div id="order-container"></div>
             <div id="gallery-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px;"></div>
         </div>
 
@@ -464,16 +442,6 @@ function addFeature() {
 }
 document.getElementById('feature-input').addEventListener('keydown', function(e){ if(e.key==='Enter'){e.preventDefault();addFeature();} });
 
-// ── Eliminar fotos existentes ────────────────────────────
-function toggleRemove(i) {
-    var cb  = document.getElementById('rm_' + i);
-    var img = document.getElementById('ri_' + i);
-    var ovr = document.getElementById('rx_' + i);
-    cb.checked = !cb.checked;
-    img.style.opacity = cb.checked ? '.35' : '1';
-    ovr.style.display = cb.checked ? 'flex' : 'none';
-}
-
 // ── Portada ──────────────────────────────────────────────
 var coverInput = document.getElementById('cover-input');
 var coverDrop  = document.getElementById('cover-drop');
@@ -501,50 +469,97 @@ coverDrop.addEventListener('drop',      function(e){ e.preventDefault(); this.cl
     }
 });
 
-// ── Galería nuevas fotos ─────────────────────────────────
-var galleryDrop    = document.getElementById('gallery-drop');
-var galleryTrigger = document.getElementById('gallery-trigger');
-var galleryInput   = document.getElementById('gallery-input');
-var galleryGrid    = document.getElementById('gallery-grid');
-var gDT            = new DataTransfer();
+// ── Galería (fotos existentes + nuevas, con reordenamiento) ──
+var galleryDrop      = document.getElementById('gallery-drop');
+var galleryTrigger   = document.getElementById('gallery-trigger');
+var galleryInput     = document.getElementById('gallery-input');
+var galleryGrid      = document.getElementById('gallery-grid');
+var removeContainer  = document.getElementById('remove-images-container');
+var orderContainer   = document.getElementById('order-container');
+
+var existingImageUrls = @json(collect($property->images ?? [])->mapWithKeys(fn($p) => [$p => Storage::url($p)]));
+
+var galleryItems = (@json(array_values($property->images ?? []))).map(function(path){
+    return { type: 'existing', path: path };
+});
+
+var dragSrcIdx = null;
 
 function renderGallery() {
     galleryGrid.innerHTML = '';
-    var files = Array.from(gDT.files).slice(0,10);
-    files.forEach(function(file, i) {
-        var url  = URL.createObjectURL(file);
+    galleryItems.forEach(function(it, i) {
+        var url  = it.type === 'existing' ? existingImageUrls[it.path] : URL.createObjectURL(it.file);
         var item = document.createElement('div');
-        item.style = 'position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:#e8eeff;';
-        item.innerHTML = '<img src="'+url+'" style="width:100%;height:100%;object-fit:cover;">'
-            +'<button type="button" onclick="removeGallery('+i+')" style="position:absolute;top:4px;right:4px;width:22px;height:22px;background:rgba(0,0,0,.55);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background=\'#ef4444\'" onmouseout="this.style.background=\'rgba(0,0,0,.55)\'">'
+        item.draggable = true;
+        item.style = 'position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:#e8eeff;cursor:grab;';
+        item.innerHTML = '<img src="'+url+'" style="width:100%;height:100%;object-fit:cover;pointer-events:none;">'
+            +'<span style="position:absolute;top:4px;left:4px;min-width:20px;height:20px;padding:0 5px;background:rgba(0,67,112,.85);color:#fff;border-radius:99px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">'+(i+1)+'</span>'
+            +'<span class="material-symbols-outlined" style="position:absolute;bottom:4px;left:4px;font-size:16px;color:#fff;background:rgba(0,0,0,.45);border-radius:6px;padding:1px;">drag_indicator</span>'
+            +'<button type="button" onclick="removeGalleryItem('+i+')" style="position:absolute;top:4px;right:4px;width:22px;height:22px;background:rgba(0,0,0,.55);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background=\'#ef4444\'" onmouseout="this.style.background=\'rgba(0,0,0,.55)\'">'
             +'<span class="material-symbols-outlined" style="font-size:13px;color:#fff;">close</span></button>';
+        item.addEventListener('dragstart', function(e){ dragSrcIdx = i; e.dataTransfer.effectAllowed = 'move'; setTimeout(function(){ item.style.opacity = '.4'; }, 0); });
+        item.addEventListener('dragend',   function(){ item.style.opacity = '1'; dragSrcIdx = null; });
+        item.addEventListener('dragover',  function(e){ e.preventDefault(); });
+        item.addEventListener('drop',      function(e){
+            e.preventDefault();
+            if (dragSrcIdx === null || dragSrcIdx === i) return;
+            var moved = galleryItems.splice(dragSrcIdx, 1)[0];
+            galleryItems.splice(i, 0, moved);
+            renderGallery();
+        });
         galleryGrid.appendChild(item);
     });
+    syncGalleryInputs();
+}
+
+function syncGalleryInputs() {
     var sync = new DataTransfer();
-    files.forEach(function(f){ sync.items.add(f); });
+    galleryItems.forEach(function(it){ if (it.type === 'new') sync.items.add(it.file); });
     galleryInput.files = sync.files;
-    document.getElementById('gallery-label').textContent = files.length
-        ? files.length+'/10 fotos · arrastra o haz clic para agregar más'
+
+    orderContainer.innerHTML = '';
+    var newIdx = 0;
+    galleryItems.forEach(function(it){
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'image_order[]';
+        input.value = it.type === 'existing' ? ('existing:' + it.path) : ('new:' + (newIdx++));
+        orderContainer.appendChild(input);
+    });
+
+    document.getElementById('gallery-label').textContent = galleryItems.length
+        ? galleryItems.length+' foto'+(galleryItems.length===1?'':'s')+' · arrastra para ordenar o haz clic para agregar más'
         : 'Arrastra fotos o haz clic para agregar';
 }
 
 function addGalleryFiles(files) {
     Array.from(files).forEach(function(f){
-        if(!f.type.startsWith('image/')||gDT.files.length>=10) return;
-        var dup=false; for(var i=0;i<gDT.files.length;i++){if(gDT.files[i].name===f.name&&gDT.files[i].size===f.size){dup=true;break;}}
-        if(!dup) gDT.items.add(f);
+        if(!f.type.startsWith('image/')) return;
+        var dup = galleryItems.some(function(it){ return it.type === 'new' && it.file.name === f.name && it.file.size === f.size; });
+        if(!dup) galleryItems.push({ type: 'new', file: f });
     });
     renderGallery();
 }
 
-function removeGallery(idx) {
-    var n=new DataTransfer(); Array.from(gDT.files).forEach(function(f,i){if(i!==idx) n.items.add(f);}); gDT=n; renderGallery();
+function removeGalleryItem(idx) {
+    var it = galleryItems[idx];
+    if (it.type === 'existing') {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'remove_images[]';
+        input.value = it.path;
+        removeContainer.appendChild(input);
+    }
+    galleryItems.splice(idx, 1);
+    renderGallery();
 }
 
 galleryTrigger.addEventListener('change', function(){ addGalleryFiles(this.files); this.value=''; });
 galleryDrop.addEventListener('dragover',  function(e){ e.preventDefault(); this.classList.add('over'); });
 galleryDrop.addEventListener('dragleave', function(){  this.classList.remove('over'); });
 galleryDrop.addEventListener('drop',      function(e){ e.preventDefault(); this.classList.remove('over'); addGalleryFiles(e.dataTransfer.files); });
+
+renderGallery();
 </script>
 </body>
 </html>
