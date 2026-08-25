@@ -131,6 +131,11 @@
                 <div class="lg:col-span-2 space-y-6">
 
                     {{-- Galería --}}
+                    @php
+                        $allImages = [];
+                        if ($property->cover_image) $allImages[] = $property->cover_image;
+                        foreach ($property->images ?? [] as $img) $allImages[] = $img;
+                    @endphp
                     <div class="rounded-2xl overflow-hidden bg-surface-container">
                         {{-- Imagen principal --}}
                         <div class="relative h-80 md:h-[480px]">
@@ -138,7 +143,8 @@
                                 <img id="main-image"
                                      src="{{ Storage::url($property->cover_image) }}"
                                      alt="{{ $property->title }}"
-                                     class="w-full h-full object-cover">
+                                     onclick="openLightbox()"
+                                     class="w-full h-full object-cover cursor-zoom-in">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-outline">
                                     <span class="material-symbols-outlined text-8xl">home</span>
@@ -170,20 +176,26 @@
                                     <span class="bg-yellow-400 text-yellow-900 text-label-sm px-3 py-1 rounded-full font-bold">⭐ DESTACADO</span>
                                 @endif
                             </div>
+
+                            @if(count($allImages ?? []) > 1)
+                                <button type="button" onclick="navGallery(-1)"
+                                        class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-black/40 text-white hover:bg-black/60 transition">
+                                    <span class="material-symbols-outlined">chevron_left</span>
+                                </button>
+                                <button type="button" onclick="navGallery(1)"
+                                        class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-black/40 text-white hover:bg-black/60 transition">
+                                    <span class="material-symbols-outlined">chevron_right</span>
+                                </button>
+                            @endif
                         </div>
 
                         {{-- Miniaturas --}}
-                        @php
-                            $allImages = [];
-                            if ($property->cover_image) $allImages[] = $property->cover_image;
-                            foreach ($property->images ?? [] as $img) $allImages[] = $img;
-                        @endphp
                         @if(count($allImages) > 1)
                             <div class="flex gap-2 p-3 overflow-x-auto">
                                 @foreach($allImages as $i => $img)
                                     <img src="{{ Storage::url($img) }}"
                                          alt=""
-                                         onclick="document.getElementById('main-image').src = this.src"
+                                         onclick="setGalleryImage({{ $i }})"
                                          class="gallery-thumb h-16 w-24 flex-shrink-0 rounded-lg object-cover border-2 {{ $i === 0 ? 'border-primary' : 'border-transparent' }}">
                                 @endforeach
                             </div>
@@ -372,7 +384,7 @@
                             <textarea rows="3" placeholder="Me interesa esta propiedad..."
                                       class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">Me interesa la propiedad "{{ $property->title }}".</textarea>
 
-                            <a href="https://wa.me/5266911057?text={{ urlencode('Hola Margarita, me interesa la propiedad: ' . $property->title . ' — ' . request()->url()) }}"
+                            <a href="https://wa.me/526691105734?text={{ urlencode('Hola Margarita, me interesa la propiedad: ' . $property->title . ' — ' . request()->url()) }}"
                                target="_blank"
                                class="w-full flex items-center justify-center gap-2 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -472,8 +484,8 @@
                     <div class="space-y-3 md:space-y-md min-w-0">
                         <h4 class="font-label-md text-on-surface font-bold text-sm">Contacto</h4>
                         <ul class="space-y-2 md:space-y-sm text-sm">
-                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] shrink-0">mail</span> <span class="break-all">maggyflog85@gmail.com</span></li>
-                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] shrink-0">call</span> +52 669 110 5734</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] shrink-0">mail</span> <a href="mailto:maggyflog85@gmail.com" class="break-all hover:text-primary transition-all">maggyflog85@gmail.com</a></li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] shrink-0">call</span> <a href="https://wa.me/526691105734" target="_blank" rel="noopener" class="hover:text-primary transition-all">+52 669 110 5734</a></li>
                         </ul>
                     </div>
                     <div class="space-y-3 md:space-y-md min-w-0">
@@ -494,16 +506,97 @@
         </div>
     </footer>
 
+    {{-- Lightbox --}}
+    @if(count($allImages ?? []) > 0)
+        <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/90 items-center justify-center">
+            <button type="button" onclick="closeLightbox()"
+                    class="absolute top-4 right-4 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 text-white hover:bg-white/20 transition">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+
+            @if(count($allImages) > 1)
+                <button type="button" onclick="navGallery(-1)"
+                        class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 text-white hover:bg-white/20 transition">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <button type="button" onclick="navGallery(1)"
+                        class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 text-white hover:bg-white/20 transition">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm font-medium bg-black/40 px-3 py-1 rounded-full">
+                    <span id="lightbox-counter"></span>
+                </div>
+            @endif
+
+            <img id="lightbox-image" src="" alt="{{ $property->title }}"
+                 class="max-w-[92vw] max-h-[88vh] object-contain select-none">
+        </div>
+    @endif
+
     <script>
         var pb = document.getElementById('progress-bar');
         if (pb) pb.style.width = pb.dataset.progress + '%';
 
-        // Cambio de imagen en galería
-        document.querySelectorAll('.gallery-thumb').forEach(thumb => {
-            thumb.addEventListener('click', function() {
-                document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('border-primary'));
-                this.classList.add('border-primary');
+        // Galería
+        var galleryImages = [
+            @foreach($allImages as $img)
+                '{{ Storage::url($img) }}',
+            @endforeach
+        ];
+        var galleryIndex = 0;
+
+        function setGalleryImage(index) {
+            galleryIndex = index;
+            var mainImg = document.getElementById('main-image');
+            if (mainImg) mainImg.src = galleryImages[galleryIndex];
+            document.querySelectorAll('.gallery-thumb').forEach((t, i) => {
+                t.classList.toggle('border-primary', i === galleryIndex);
+                t.classList.toggle('border-transparent', i !== galleryIndex);
             });
+            updateLightboxImage();
+        }
+
+        function navGallery(direction) {
+            if (!galleryImages.length) return;
+            setGalleryImage((galleryIndex + direction + galleryImages.length) % galleryImages.length);
+        }
+
+        // Lightbox
+        var lightbox = document.getElementById('lightbox');
+
+        function updateLightboxImage() {
+            if (!lightbox || lightbox.classList.contains('hidden')) return;
+            document.getElementById('lightbox-image').src = galleryImages[galleryIndex];
+            var counter = document.getElementById('lightbox-counter');
+            if (counter) counter.textContent = (galleryIndex + 1) + ' / ' + galleryImages.length;
+        }
+
+        function openLightbox() {
+            if (!lightbox || !galleryImages.length) return;
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+            updateLightboxImage();
+        }
+
+        function closeLightbox() {
+            if (!lightbox) return;
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        if (lightbox) {
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) closeLightbox();
+            });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (!lightbox || lightbox.classList.contains('hidden')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navGallery(-1);
+            if (e.key === 'ArrowRight') navGallery(1);
         });
 
         // Menú mobile

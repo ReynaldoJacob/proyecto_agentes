@@ -428,8 +428,8 @@
                     <div class="space-y-3 md:space-y-md min-w-0">
                         <h4 class="font-label-md text-on-surface font-bold text-sm">Contacto</h4>
                         <ul class="space-y-2 md:space-y-sm text-sm">
-                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] shrink-0">mail</span> <span class="break-all">maggyflog85@gmail.com</span></li>
-                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] shrink-0">call</span> +52 669 110 5734</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] shrink-0">mail</span> <a href="mailto:maggyflog85@gmail.com" class="break-all hover:text-primary transition-all">maggyflog85@gmail.com</a></li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] shrink-0">call</span> <a href="https://wa.me/526691105734" target="_blank" rel="noopener" class="hover:text-primary transition-all">+52 669 110 5734</a></li>
                         </ul>
                     </div>
                     <div class="space-y-3 md:space-y-md min-w-0">

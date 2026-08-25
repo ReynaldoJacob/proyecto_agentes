@@ -318,6 +318,12 @@
             </div>
             <input type="file" id="cover-input" name="cover_image" accept="image/*" style="display:none;">
 
+
+
+
+
+
+
             {{-- Galería --}}
             <p style="font-size:11px;font-weight:700;color:#414750;text-transform:uppercase;letter-spacing:.06em;margin:20px 0 8px;">
                 Galería de fotos <span style="font-weight:400;text-transform:none;color:#a0aab4;">— arrastra para ordenar</span>
